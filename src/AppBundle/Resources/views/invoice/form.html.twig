@@ -1,0 +1,261 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm">
+                <h1>Facture</h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="row justify-content-center ">
+            <div class="col-lg-11"  >
+                {#{{ dump(form) }} {{ dump(quote) }}#}
+                {#  {{ dump(customers) }}#}
+
+                {{ form_start(form, {'attr' :{'novalidate':'novalidate'}}) }}
+                {% if error is defined and error != null  %}
+                    <div class="row alert alert-danger">{{ error }}</div>
+                {% endif %}
+                <div class="form-group" >
+                    <div class="row rowFormQuote1" >
+                        <div class="col-lg col-md-6">
+                            {# Affichage des erreurs pour ce champ précis. #}
+                            {% if form_errors(form.numberInvoice ) != null %}
+                                <div class="col alert alert-danger">{{ form_errors(form.numberInvoice) }}</div>
+                            {% endif %}
+                            <div class="col control-label">
+                                {# Génération du label. #}
+                                {{ form_label(form.numberInvoice) }}
+                            </div>
+                            <div class="col">
+                                {# Génération de l'input. #}
+                                {{ form_widget(form.numberInvoice, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="col-lg col-md-6">
+                            {# Affichage des erreurs pour ce champ précis. #}
+                            {% if form_errors(form.documentName ) != null %}
+                                <div class="col alert alert-danger">{{ form_errors(form.documentName) }}</div>
+                            {% endif %}
+                            <div class="col control-label" >
+                                {# Génération du label. #}
+                                {{ form_label(form.documentName) }}
+                            </div>
+                            <div class="col">
+                                {# Génération de l'input. #}
+                                {{ form_widget(form.documentName) }}
+                            </div>
+                        </div>
+                        <div class="col-lg col-md-6">
+                            {# Affichage des erreurs pour ce champ précis. #}
+                            {% if form_errors(form.customer ) != null %}
+                                <div class="col alert alert-danger">{{ form_errors(form.customer) }}</div>
+                            {% endif %}
+                            <div class="col control-label">
+                                {# Génération du label. #}
+                                {{ form_label(form.customer) }}
+                            </div>
+                            <div class="col-md-12">
+                                {# Génération de l'input. #}
+                                {{ form_widget(form.customer, {'attr': {'class': 'customerFormQuote '}}) }}
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            {# Affichage des erreurs pour ce champ précis. #}
+                            {% if form_errors(form.paymentMethod ) != null %}
+                                <div class="col alert alert-danger">{{ form_errors(form.paymentMethod) }}</div>
+                            {% endif %}
+                            <div class="col control-label">
+                                {# Génération du label. #}
+                                {{ form_label(form.paymentMethod) }}
+                            </div>
+                            <div class="col">
+                                {# Génération de l'input. #}
+                                {{ form_widget(form.paymentMethod, {'attr': {'class': 'paymentMethodFormQuote'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row rowFormQuote2" >
+                        <div class="col-lg col-md-4">
+                            {# Affichage des erreurs pour ce champ précis. #}
+                            {% if form_errors(form.creationDate ) != null %}
+                                <div class="col alert alert-danger">{{ form_errors(form.creationDate) }}</div>
+                            {% endif %}
+                            <div class="col control-label">
+                                {# Génération du label. #}
+                                {{ form_label(form.creationDate) }}
+                            </div>
+                            <div class="col">
+                                {# Génération de l'input. #}
+                                {{ form_widget(form.creationDate, {'attr': {'class': 'form-control'}}) }}
+
+                            </div>
+                        </div>
+                        <div class="col-lg col-md-4">
+                            {# Affichage des erreurs pour ce champ précis. #}
+                            {% if form_errors(form.billingDate ) != null %}
+                                <div class="col alert alert-danger">{{ form_errors(form.billingDate) }}</div>
+                            {% endif %}
+                            <div class="col control-label">
+                                {# Génération du label. #}
+                                {{ form_label(form.billingDate) }}
+                            </div>
+                            <div class="col">
+                                {# Génération de l'input. #}
+                                {{ form_widget(form.billingDate, {'attr': {'class': 'form-control'}}) }}
+
+                            </div>
+                        </div>
+                        <div class="col-lg col-md-4">
+                            {# Affichage des erreurs pour ce champ précis. #}
+                            {% if form_errors(form.percentageAdvencePayment ) != null %}
+                                <div class="col alert alert-danger">{{ form_errors(form.tva) }}</div>
+                            {% endif %}
+                            <div class="col control-label">
+                                {# Génération du label. #}
+                                {{ form_label(form.percentageAdvencePayment) }}
+                            </div>
+                            <div class="col">
+                                {# Génération de l'input. #}
+                                {{ form_widget(form.percentageAdvencePayment) }}
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="products row "  data-prototype="{% filter escape %}{% include '@App/quote/template/formProduct.html.twig' with {'product': (form.products.vars.prototype)|e ('html_attr')} %}{% endfilter %}">
+                    <div class="col-lg-12" >
+                        {% if form_errors(form.products) != null %}
+                            <div class="row">
+                                <div class="col-lg-12 alert alert-danger">{{ form_errors(form.products) }}</div>
+                            </div>
+                        {% endif %}
+                        <div class="row" >
+                            <div class="col-lg-12 control-label" >
+                                <h3>Produit(s) :</h3>
+                            </div>
+                        </div>
+                        {% for product in form.products %}
+                            {% include '@App/quote/template/formProduct.html.twig'%}
+                        {% else %}
+                            {% do form.products.setRendered %}
+                        {% endfor %}
+                        <div class="row justify-content-center add_product_row" >
+                            <div class="add_product_link col-lg-5  btn-warning" >Ajouter un produit +</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col btnValiderQuote">
+                        {{ form_widget(form.submit, {'attr': {'class': ' validate  btnValidate col-lg-3 col-md-auto'}} ) }}
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+
+
+        /*-------------------------------------------------------------------------------------------------------------*/
+        //select button addPhoneLink
+        var $newLinkLi = $('.add_product_link');
+
+        jQuery(document).ready(function() {
+            //Champ utilisant 'SELECT2'
+            $('.customerFormQuote').select2();
+            $('.paymentMethodFormQuote').select2();
+            $('.tvaForm').select2();
+
+
+            /*----------------------------------------------------*/
+            /*------ADD    PHONE                        ----------*/
+            /*----------------------------------------------------*/
+            // Get the ul that holds the collection of tags
+            var collectionHolder = $('div.products');
+
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            collectionHolder.data('index', (collectionHolder.find(':input').length)/2);
+
+
+            $newLinkLi.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new tag form (see next code block)
+                addProductForm(collectionHolder, $newLinkLi);
+            });
+
+
+        });
+
+        function addProductForm(collectionHolder, $newLinkLi) {
+            // get the new index
+            var index = collectionHolder.data('index');
+
+            // Get the data-prototype explained earlier
+            var prototype = collectionHolder.data('prototype');
+
+            var newForm = prototype;
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__/g, index);
+
+            var newIndex = index + 1;
+
+            // increase the index with one for the next item
+            collectionHolder.data('index', newIndex);
+
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var newFormLi = $('<div></div>').append(newForm);
+
+            $('.add_product_row').before(newFormLi);
+
+            //applique select2 sur la class
+            $('.tvaForm').select2();
+
+
+
+        }
+
+        /*----------------------------------------------------*/
+        /*------DELETE PHONE                        ----------*/
+        /*----------------------------------------------------*/
+
+        function deleteProduct(id){
+            $(id).remove();
+        }
+
+        /*------------------------------------------------------------------------------------------*/
+
+
+    </script>
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,224 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: RICHA
+ * Date: 30/05/2018
+ * Time: 17:44
+ */
+
+namespace AppBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class Tva
+ * @ORM\Entity()
+ */
+class Tva
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="bigint")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string",length=30, nullable=false)
+     * @Assert\NotNull(message=" Le champ (Nom) ne peut être vide. ")
+     * @Assert\Length( min="5", max="30", minMessage="Le nom de la TVA doit faire au moins 5 caractères" , maxMessage="Le nom de la TVA ne doit pas faire plus de 30 caractères" )
+     * @Assert\Type("string")
+     */
+    private $name;
+
+
+    /**
+     * @ORM\Column(type="float", nullable=false)
+     * @Assert\NotNull( message=" Le champ (Pourcentage) ne peut être vide. ")
+     * @Assert\Length( min="2", max="5"  )
+     * @Assert\Type("float" )
+     */
+    private $percentage;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product", mappedBy="tva")
+     * @Assert\NotNull(message="Choisisez une TVA")
+     * @Assert\Valid(traverse=true)
+     */
+    private $products;
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->quotes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->invoices = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function __toString() {
+        return $this->name;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Tva
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set percentage
+     *
+     * @param integer $percentage
+     *
+     * @return Tva
+     */
+    public function setPercentage($percentage)
+    {
+        $this->percentage = $percentage;
+
+        return $this;
+    }
+
+    /**
+     * Get percentage
+     *
+     * @return integer
+     */
+    public function getPercentage()
+    {
+        return $this->percentage;
+    }
+
+    /**
+     * Add quote
+     *
+     * @param \AppBundle\Entity\Quote $quote
+     *
+     * @return Tva
+     */
+    public function addQuote(\AppBundle\Entity\Quote $quote)
+    {
+        $this->quotes[] = $quote;
+
+        return $this;
+    }
+
+    /**
+     * Remove quote
+     *
+     * @param \AppBundle\Entity\Quote $quote
+     */
+    public function removeQuote(\AppBundle\Entity\Quote $quote)
+    {
+        $this->quotes->removeElement($quote);
+    }
+
+    /**
+     * Get quotes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQuotes()
+    {
+        return $this->quotes;
+    }
+
+    /**
+     * Add invoice
+     *
+     * @param \AppBundle\Entity\Invoice $invoice
+     *
+     * @return Tva
+     */
+    public function addInvoice(\AppBundle\Entity\Invoice $invoice)
+    {
+        $this->invoices[] = $invoice;
+
+        return $this;
+    }
+
+    /**
+     * Remove invoice
+     *
+     * @param \AppBundle\Entity\Invoice $invoice
+     */
+    public function removeInvoice(\AppBundle\Entity\Invoice $invoice)
+    {
+        $this->invoices->removeElement($invoice);
+    }
+
+    /**
+     * Get invoices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInvoices()
+    {
+        return $this->invoices;
+    }
+
+    /**
+     * Add product
+     *
+     * @param \AppBundle\Entity\Product $product
+     *
+     * @return Tva
+     */
+    public function addProduct(\AppBundle\Entity\Product $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \AppBundle\Entity\Product $product
+     */
+    public function removeProduct(\AppBundle\Entity\Product $product)
+    {
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+}

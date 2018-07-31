@@ -1,0 +1,37 @@
+
+<nav class=" navbar navbar-expand-lg navbar-dark  navbar-toggleable-sm  " >
+    <a class="navbar-brand fontArt" href="{{ path("homepage") }}"></a>
+    {% if is_granted("ROLE_ADMIN") %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse " id="navbarSupportedContent" >
+            <ul class="navbar-nav mr-auto" >
+                <li class="nav-item">
+                    <a class=" nav-link text-center fontArt" href="{{ path("customer.index") }}">CLIENTS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-center fontArt" href="{{ path("quote.index") }}">DEVIS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-center fontArt" href="{{ path("invoice.index") }}">FACTURES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-center fontArt" href="{{ path("setting.index") }}">PARAMÊTRES</a>
+                </li>
+            </ul>
+        </div>
+    {% endif %}
+    <div class="LinkDisconnect ">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <span class="ConnectionName">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</span><br>
+            <a class="nav-link fontArt" href="{{ path('fos_user_security_logout') }}">
+                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+            </a>
+        {% endif %}
+    </div>
+
+</nav>
+<div class="navLimit"> </div>
+

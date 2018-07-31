@@ -1,0 +1,71 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-lg ">
+                <h1>Factures</h1>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 20px">
+            <div class="col-lg-8 col-md-8">
+                {{ form_start(form) }}
+                <div class="form-group" >
+                    <div class="row">
+                        {% if form_errors(form.keyword ) != null %}
+                            <div class="col alert alert-danger">{{ form_errors(form.keyword) }}</div>
+                        {% endif %}
+                        <div class="col-lg-8 col-md-8" >
+                            {{ form_widget(form.keyword, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-lg-4 col-md-4" >
+                            {{ form_widget(form.submit, {'attr': {'class': 'btnSearchInvoice btn btn-info hidden '}} ) }}
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+
+            <div class="col-lg-4 col-md-4"  >
+                <div class="row justify-content-end" style=" margin-right: 10px">
+                    <a class=" btnValidate " href={{ path("invoice.form") }}><bold>Nouvelle facture +</bold></a>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="resultInvoiceHead col-lg-10 col-md-10">
+                <div class="row">
+                    <div class="col-lg col-md">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4"><span>N°facture:</span> </div>
+                            <div class="col-lg-4 col-md-4"><span>Nom du client:</span> </div>
+                            <div class="col-lg-4 col-md-4"><span>Nom du dossier:</span> </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1 col-md-2"></div>
+                </div>
+            </div>
+        </div>
+        {%  if results is not null %}
+            {% for invoice in results%}
+                <div class="rowSearchInvoice row justify-content-center  ">
+                    <div class="col-lg-10 col-md-10">
+                        <div class="row">
+                            <a class="resultInvoice col-lg col-md" href="{{ path("invoice.pdf", {id: invoice.invoiceID}) }}" target="_blank">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4">{{ invoice.number_invoice }}</div>
+                                    <div class="col-lg-4 col-md-4">{{ invoice.name }}</div>
+                                    <div class="col-lg-4 col-md-4">{{ invoice.document_name }}</div>
+                                </div>
+                            </a>
+                            <a class="col-lg-1 col-md-2 btnEditer" href="{{ path("invoice.form", {id: invoice.invoiceID}) }}">Modifier</a>
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+
+{% endblock %}

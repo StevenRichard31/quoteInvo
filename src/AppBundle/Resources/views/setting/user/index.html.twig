@@ -1,0 +1,67 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {#    {{ dump(users) }}#}
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-sm">
+                <h1>Utilisateur du logiciel</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-4"  >
+                <div class="row justify-content-end" style=" margin-right: 10px">
+                    <a class="btnEditer " href={{ path("fos_user_registration_register") }}><bold>Nouvelle Utilisateur +</bold></a>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="resultInvoice col-md-8 ">
+                <div class="row">
+                    <div class="col-md-4">N°facture:</div>
+                    <div class="col-md-4">Nom du client:</div>
+                    <div class="col-md-4">Nom du dossier:</div>
+                </div>
+            </div>
+        </div>
+        {%  if users is not null %}
+            {% for user in users %}
+                <div class="rowUserInfo row justify-content-center  ">
+                    <div class="col-md-8" href="#" target="_blank">
+                        <div class="row">
+                            <div class="col-lg">{{ user.username }}</div>
+                            <div class="col-lg">{{ user.roles[0]}}</div>
+                            <div class="col-lg">
+                                {% if user.enabled == true %}
+                                    ACTIVER
+                                {% else %}
+                                    DESACTIVER
+                                {%  endif %}
+                            </div>
+                            <div class="col-lg">
+                                {% if user.roles[0] != 'ROLE_ADMIN' %}
+                                    {% if user.enabled == true %}
+                                        <a class="btn-warning" href="{{ path("setting.user.enabled", {id: user.id}) }}">Désactiver</a>
+                                    {% else %}
+                                        <a class="btn-success" href="{{ path("setting.user.enabled", {id: user.id}) }}">Activer</a>
+                                    {%  endif %}
+                                {% endif %}
+                            </div>
+                            <div class="col-lg">
+                                {% if user.roles[0] != 'ROLE_ADMIN' %}
+                                    <a class="btnSupprimer" href="{{ path("setting.user.delete", {id: user.id}) }}">Supprimer</a>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+
+{% endblock %}

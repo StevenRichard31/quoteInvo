@@ -1,0 +1,317 @@
+{% extends "base.html.twig" %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% block body %}
+
+  {#{{ dump(name) }} {{ dump(customer) }} #}
+
+
+    <div class="container-fluid">
+
+        <div class="row justify-content-center" style="margin-bottom: 30px">
+            <div class="col-md-8 text-center">
+                <h1>Enregistrement d'un nouveau clients</h1>
+
+                {% if errorName != null %}
+                    <div class=" alert alert-danger">{{ errorName }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+
+        {{ form_start(form, {'attr' :{'novalidate':'novalidate'}}) }}
+        {#{{ form_start(form) }}#}
+
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                {# Affichage des erreurs pour ce champ précis. #}
+                {% if form_errors(form.name ) != null %}
+                    <div class="col-12 alert alert-danger">{{ form_errors(form.name) }}</div>
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                {# Affichage des erreurs pour ce champ précis. #}
+                {% if form_errors(form.mail) != null %}
+                    <div class="col-sm-12 alert alert-danger">{{ form_errors(form.mail) }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="form-group col-md-4" >
+                <div class="col-sm-12 control-label">
+                    {# Génération du label. #}
+                    <bold></bold>{{ form_label(form.name, "Nom du client :") }}
+                </div>
+                <div class="col-sm-12">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                <div class="col-sm-12 control-label">
+                    {# Génération du label. #}
+                    {{ form_label(form.mail, "Mail :") }}
+                </div>
+                <div class="col-sm-12 ">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.mail, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8"><h3 >Adresse :</h3></div>
+        </div>
+
+
+
+        <div class="row justify-content-center">
+            <div class="col-md-8 fieldAddress">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        {# Affichage des erreurs pour ce champ précis. #}
+                        {% if form_errors(form.address.street) != null %}
+                            <div class="col-sm-12 alert alert-danger">{{ form_errors(form.address.street) }}</div>
+                        {% endif %}
+                        <div class="col-sm-12 control-label">
+                            {# Génération du label. #}
+                            {{ form_label(form.address.street, "Rue :") }}
+                        </div>
+                        <div class="col-sm-12 ">
+                            {# Génération de l'input. #}
+                            {{ form_widget(form.address.street, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        {# Affichage des erreurs pour ce champ précis. #}
+                        {% if form_errors(form.address.town) != null %}
+                            <div class="col-sm-12 alert alert-danger">{{ form_errors(form.address.town) }}</div>
+                        {% endif %}
+                        <div class="col-sm-12 control-label">
+                            {# Génération du label. #}
+                            {{ form_label(form.address.town, "Ville :") }}
+                        </div>
+                        <div class="col-sm-12 ">
+                            {# Génération de l'input. #}
+                            {{ form_widget(form.address.town, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        {% if form_errors(form.address.postalCode) != null %}
+                            <div class="col-sm-12 alert alert-danger">{{ form_errors(form.address.postalCode) }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        {% if form_errors(form.address.country) != null %}
+                            <div class="col-sm-12 alert alert-danger">{{ form_errors(form.address.country) }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        {% if form_errors(form.address.building) != null %}
+                            <div class="col-sm-12 alert alert-danger">{{ form_errors(form.address.building) }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <div class="col-sm-12 control-label">
+                            {# Génération du label. #}
+                            {{ form_label(form.address.postalCode, "Code Postal :") }}
+                        </div>
+                        <div class="col-sm-12 ">
+                            {# Génération de l'input. #}
+                            {{ form_widget(form.address.postalCode, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <div class="col-sm-12 control-label">
+                            {# Génération du label. #}
+                            {{ form_label(form.address.country, "Pays :") }}
+                        </div>
+                        <div class="col-sm-12 ">
+                            {# Génération de l'input. #}
+                            {{ form_widget(form.address.country, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4 " >
+                        <div class="col-sm-12 control-label">
+                            {# Génération du label. #}
+                            {{ form_label(form.address.building, "Bâtiment :") }}
+                        </div>
+                        <div class="col-sm-12 ">
+                            {# Génération de l'input. #}
+                            {{ form_widget(form.address.building, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8"><h3 >Téléphone(s) :</h3></div>
+        </div>
+
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="row justify-content-center" >
+                    <div class="phones form-group col-sm-12" data-prototype="{{ form_widget(form.phones.vars.prototype)|e ('html_attr') }}">
+                        {% if form_errors(form.phones) != null %}
+                            <div class="col-sm-12 alert alert-danger ">{{ form_errors(form.phones) }}</div>
+                        {% endif %}
+
+                        {% for phone in form.phones %}
+                            <div id="{{ phone.vars.id }}" class="phoneRow row justify-content-center" >
+                                {#{{ form_row(phone) }}#}
+                                {% if form_errors(phone.type) != null %}
+                                    <div class="col-sm-12 alert alert-danger">{{ form_errors(phone.type) }}</div>
+                                {% endif %}
+                                <div class="col-sm-12 control-label">
+
+                                    {{ form_label(phone.type) }}
+                                </div>
+                                <div class="col-sm-12">
+
+                                    {{ form_widget(phone.type, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                {% if form_errors(phone.number) != null %}
+                                    <div class="col-sm-12 alert alert-danger">{{ form_errors(phone.number) }}</div>
+                                {% endif %}
+                                <div class="col-sm-12 control-label">
+
+                                    {{ form_label(phone.number) }}
+                                </div>
+                                <div class="col-sm-12">
+
+                                    {{ form_widget(phone.number, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class=" btnSupprimer text-center col-md-8 align-self-center" onclick="deletePhone({{ phone.vars.id }})" style="margin-top: 10px">Supprimer ce numéro de téléphone</div>
+                            </div>
+
+                        {% else %}
+                            {% do form.phones.setRendered %}
+                        {% endfor %}
+                    </div>
+
+
+                    <div class="add_phone_link btn-warning col-md-8 " style="margin: 20px 0px 20px 0px" >Ajouter un téléphone +</div>
+
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-8" style="border-top: 1px solid deepskyblue ; padding-top:30px " >
+                {{ form_widget(form.submit, {'attr': {'class': ' validate btnValidate col-md-5 '}} ) }}
+            </div>
+        </div>
+
+
+
+
+
+        {{ form_end(form) }}
+    </div>
+
+
+
+{% endblock %}
+
+
+{#-------------------------------------------------------------------------------------------------#}
+
+{% block script %}
+<script>
+
+
+    //select button addPhoneLink
+    var $newLinkLi = $('.add_phone_link');
+
+    jQuery(document).ready(function() {
+        /*----------------------------------------------------*/
+        /*------ADD    PHONE                        ----------*/
+        /*----------------------------------------------------*/
+        // Get the ul that holds the collection of tags
+        var collectionHolder = $('div.phones');
+
+
+        // count the current form inputs we have (e.g. 2), use that as the new
+        // index when inserting a new item (e.g. 2)
+        collectionHolder.data('index', (collectionHolder.find(':input').length)/2);
+
+
+        $newLinkLi.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+
+            // add a new tag form (see next code block)
+            addPhoneForm(collectionHolder, $newLinkLi);
+        });
+
+
+    });
+
+    function addPhoneForm(collectionHolder, $newLinkLi) {
+        // get the new index
+        var index = collectionHolder.data('index');
+
+        if ( index <= 4){
+            // Get the data-prototype explained earlier
+            var prototype = collectionHolder.data('prototype');
+
+            var newForm = prototype;
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__/g, index);
+
+            var newIndex = index + 1;
+
+            // increase the index with one for the next item
+            collectionHolder.data('index', newIndex);
+
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var newFormLi = $('<div class="customerPhoneForm col-md-5" ></div>').append(newForm);
+            $newLinkLi.before(newFormLi);
+            $('#appbundle_customer_phones_' + index + '_number').addClass('form-control');
+            $('#appbundle_customer_phones_' + index + '_type').addClass('form-control');
+
+            //add a delete link to the new form
+            addPhoneFormDeleteLink(newFormLi);
+        }
+    }
+
+    /*----------------------------------------------------*/
+    /*------DELETE PHONE                        ----------*/
+    /*----------------------------------------------------*/
+    function addPhoneFormDeleteLink(newFormLi){
+
+
+        var removeFormA = $('<div href="#" class="del_phone_link  btnSupprimer text-center" >Supprimer ce numéro de téléphone</div>');
+        newFormLi.append(removeFormA);
+
+        removeFormA.on('click', function(e) {
+
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+
+            // remove the li for the tag form
+            newFormLi.remove();
+        });
+    }
+
+    function deletePhone(id){
+
+        $(id).remove();
+
+    }
+</script>
+{% endblock %}

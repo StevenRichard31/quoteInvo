@@ -1,0 +1,288 @@
+<style type="text/css">
+    h4{
+        margin: 15px;
+    }
+    h3{
+        margin: 5px
+    }
+    img{
+        width: 100%;
+    }
+    .litleP{
+        font-size: 11px;
+    }
+    .containerAddress{
+        border: 1px solid black;
+        border-radius: 5px;
+        padding-left: 90px;
+        margin: 60px 50px 0px 110px;
+
+    }
+    .containerID{
+        border: 1px solid black;
+        text-align: center;
+
+    }
+    .containerDocName{
+        border: 1px  dashed black;
+        border-top: none;
+        text-align: center;
+        margin: 0px 30px 0px 50px;
+
+    }
+    table{
+        border-collapse: collapse; /* Les bordures du tableau seront collées (plus joli) */
+        font-family:  helvetica;
+    }
+    .borderTD{
+        border: black 1px solid;
+    }
+    .condition{
+        margin: 0px 10px;
+    }
+
+</style>
+
+
+
+{#{{ dump(document) }} backtop="106.5mm" backbottom="0mm" backleft="0mm" backright="0mm"#}
+<page backtop="120.9mm" backbottom="60mm" backleft="0mm" backright="0mm" footer="page">
+
+    <page_header >
+
+        <table>
+            <tr>
+                <td  style="width: 30%;"><img src=".{{ asset('images/logo.jpg') }}" alt="logo" ></td>
+                <td  style="width: 70%;" rowspan="7">
+                    <div class="containerAddress">
+                        <h4>
+                            {{ document[0].getCustomer.getName }}<br>
+                            {{document[0].getCustomer.getAddress.getStreet}}<br>
+                            {{document[0].getCustomer.getAddress.getPostalCode}} {{document[0].getCustomer.getAddress.getTown}}<br>
+                            {% if document[0].getCustomer.getAddress.getBuilding != null %}
+                                {{ document[0].getCustomer.getAddress.getBuilding  }}<br>
+                            {% endif %}
+                            {% if document[0].getCustomer.getAddress.getCountry != null %}
+                                {{ document[0].getCustomer.getAddress.getCountry  }}<br>
+                            {% endif %}
+                        </h4>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <span> </span>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <span><strong>  10, rue Isaac Newton</strong> </span>
+                </td>
+
+            </tr>
+            <tr>
+                <td  >
+                    <span><strong>  31830 PLAISANCE-DU-TOUCH</strong></span>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <span><strong>  TEL: 05 82 74 88 60</strong></span>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <span><strong>  contact@s31-impression.fr</strong></span>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <span> </span>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td class="borderTD" style="width: 40%"  colspan="2">
+                    <div class="containerID">
+                        {% if document['documentType'] == "FACTURE" %}
+                            <h3>{{ document['documentType'] }} N° {{ document[0].getNumberInvoice }}</h3>
+                        {% elseif document['documentType'] == "DEVIS" %}
+                            <h3>{{ document['documentType'] }} N° {{ document[0].getNumberQuote }}</h3>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-bottom: black 1px solid"><span> </span> </td>
+                <td style="border-bottom: black 1px solid"><span> </span> </td>
+            </tr>
+            <tr>
+                <td class="borderTD"><strong>Date</strong></td>
+                <td class="borderTD" style="text-align: center">{{ document[0].getCreationDate|date('d/m/Y') }}</td>
+            </tr>
+            <tr>
+                <td class="borderTD" ><strong>Echéance validité</strong></td>
+                <td class="borderTD" style=" text-align: center">
+                    {% if document['documentType'] == "DEVIS" %}
+                        {{ document[0].getValidationDeadLine|date('d/m/Y') }}
+                    {% endif %}
+                </td>
+                {% if document[0].getDocumentName != null %}
+                <td style="width: 60%;" rowspan="3">
+                    <div class="containerDocName"><strong>{{ document[0].getDocumentName }}</strong></div>
+                </td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td class="borderTD"><strong>Paiement le</strong></td>
+                <td class="borderTD" style="text-align: center">{{ document[0].getBillingDate|date('d/m/Y') }}</td>
+            </tr>
+            <tr>
+                <td class="borderTD"><strong>Mode de règlement</strong></td>
+                <td class="borderTD" style="text-align: center">{{ document[0].getPaymentMethod.getName }}</td>
+            </tr>
+        </table>
+        <br>
+        <table>
+            <tr>
+                <td class="borderTD" style="width: 48%;text-align: center"><strong>Désignation</strong></td>
+                <td class="borderTD" style="width: 10%;text-align: center"><strong>Prix unitaire HT</strong></td>
+                <td class="borderTD" style="width: 10%;text-align: center"><strong>Quantité</strong></td>
+                <td class="borderTD" style="width: 7%;text-align: center"><strong>Remise <br>(%)</strong></td>
+                <td class="borderTD" style="width: 7%;text-align: center"><strong>TVA</strong></td>
+                <td class="borderTD" style="width: 18%;text-align: center"><strong>Total TTC</strong></td>
+            </tr>
+        </table>
+    </page_header>
+
+    <table class="content">
+
+        {% for product in document[0].getProducts %}
+                <tr>
+                    <td class="borderTD" style="width: 48%;text-align: center">
+                        <strong>
+                            {{ product.getName|wordwrap(30, "\n", true) }}
+                        </strong>
+                    </td>
+                    <td class="borderTD" style="width: 10%;text-align: center">{{ product.getPriceOutTaxe }}</td>
+                    <td class="borderTD" style="width: 10%;text-align: center">{{ product.getQuantity }}</td>
+                    <td class="borderTD" style="width: 7%;text-align: center">
+                        {% if  product.getPercentageDiscount == null %}
+                            {% set percentage_discount = '' %}
+                            {{ percentage_discount }}
+                            {% else %}
+                            {{ product.getPercentageDiscount }}%
+                        {% endif %}
+                    </td>
+                    <td class="borderTD" style="width: 7%;text-align: center">{{ product.getTVA.getPercentage  }}%</td>
+                    <td class="borderTD" style="width: 18%;text-align: center"><strong>{{ product.getPriceWithTaxe  }}</strong></td>
+                </tr>
+        {% endfor %}
+
+    </table>
+
+    <page_footer>
+
+        <hr />
+        <table>
+            <tr>
+                <td  style="width: 70%;" rowspan="8">
+                    <div class="condition">
+                        <span class="litleP">{{ "Toutes nos marchandises voyagent aux risques et périls du destinataire. En cas de contestation, le
+                                Tribunal de TOULOUSE est seul compétent.Pas d'escompte pour règlement anticipé."|wordwrap(40, "\n", true) }}
+                        </span><br>
+                        <span class="litleP">{{
+                            "En cas de retard de paiement, une pénalité égale à 3 fois le
+                             taux intérêt légal sera exigible (Article L 441-6, alinéa 12 du Code de Commerce)."|wordwrap(40, "\n", true) }}
+                        </span><br>
+                        <span class="litleP">{{
+                                "Pour tout professionnel, en sus des indemnités de retard, toute somme, y compris l'acompte, non
+                                payée à sa date d'exigibilité produira de plein droit le paiement d'une indemnité forfaitaire de 40 euros due au titre des frais de recouvrement
+                                (Art.441-6,l al. 12 du code de commerce et D. 441-5 ibidem)"|wordwrap(40, "\n", true) }}
+                        </span>
+                    </div>
+                </td>
+                <td style="border-right: 1px solid black;"></td>
+                <td class="borderTD" style="text-align: center">
+                    <span><strong>TOTAL HT</strong></span>
+                </td>
+                <td class="borderTD" style="text-align: center">
+                    <span><strong>{{ document[0].getTotalExcludingTaxes }}</strong></span>
+                </td>
+            </tr>
+            {% for tva in document['arrayTva'] %}
+            <tr>
+                <td style="border-right: 1px solid black"></td>
+                <td class="borderTD" style="width: 15%;text-align: center">
+                    <span><strong>{{ tva['name'] }}</strong></span>
+                </td>
+                <td class="borderTD" style="width: 15%;text-align: center">
+                    <span><strong>{{ tva['price'] }}</strong></span>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td style="border-right: 1px solid black"></td>
+                <td class="borderTD" style="text-align: center">
+                    <span><strong>TOTAL T.T.C</strong></span>
+                </td>
+                <td class="borderTD" style="text-align: center">
+                    <span><strong>{{ document[0].getTotalIncludingTaxes }}</strong></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1px solid black"></td>
+                <td class="borderTD" style="text-align: center">
+                    <span><strong>ACOMPTE</strong></span>
+                </td>
+                <td class="borderTD" style="text-align: center">
+                    <span>
+                        <strong>
+                            {% if  document[0].getPercentageAdvencePayment != null %}
+                                {{ document[0].getPercentageAdvencePayment }}(%)
+                            {% else %}
+                                Aucun
+                            {% endif %}
+                        </strong>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1px solid black"></td>
+                <td class="borderTD" style="text-align: center">
+                    <span><strong>A PAYER</strong></span>
+                </td>
+                <td class="borderTD" style="text-align: center">
+                    <span>
+                        <strong>
+                            {% if document['leftToPay'] is defined %}
+                                {{ document['leftToPay'] }}
+                            {% else %}
+                                {{ document[0].getTotalIncludingTaxes }}
+                            {% endif %}
+                        </strong>
+                    </span>
+                </td>
+            </tr>
+        </table>
+        <br><br>
+        <img style="width: 8%;" src=".{{ asset('images/logo.jpg') }}" alt="logo" >
+        <br><br>
+        <table>
+            <tr>
+                <td style="width: 100%; text-align: center"><span style="font-size: 11px;"><strong>SASU au Capital de 500 € APE 1812Z SIRET 828 464 669 00013 RCS. Toulouse</strong></span></td>
+            </tr>
+            <tr>
+                <td style="width: 100%; background-color: #a7478c"> </td>
+            </tr>
+            <tr>
+                <td style="width: 100%; background-color: #93bcff"> </td>
+            </tr>
+        </table>
+
+    </page_footer>
+
+</page>
+
+

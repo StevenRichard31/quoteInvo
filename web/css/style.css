@@ -1,0 +1,515 @@
+/*---------------------------------------------------------------------*/
+/*----------ALL                                     -------------------*/
+/*---------------------------------------------------------------------*/
+@font-face {
+    font-family: "next_art_bold-webfont";
+    src:url("fonts/next_art_bold-webfont.ttf") format("ttf"),
+    url("fonts/next_art_bold-webfont.woff2") format("woff2"),
+    url("fonts/next_art_bold-webfont.woff") format("woff");
+}
+
+html, body {
+    height: 100%;
+    background-color: #e3f6ff;
+}
+
+label{
+    font-family: "next_art_bold-webfont"  ;
+    font-size: smaller;
+}
+h1{
+    font-size: xx-large;
+}
+h2{
+    font-size: x-large;
+}
+h3{
+    font-size: large;
+}
+
+h1,h2,h3,h4,h5{
+    font-family: "next_art_bold-webfont" ;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+h5{
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.fontArt{
+    font-family: "next_art_bold-webfont"  ;
+    font-size: 15px;
+    color: white;
+}
+
+h1,h2,h3,h4,label{
+    color: #232728 ;
+}
+
+
+span,p{
+    color: ghostwhite ;
+    font-size: 17px ;
+    text-shadow:2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+input{
+    height: 27px;
+}
+
+select{
+    max-height: 30px;
+    text-align: center;
+
+
+}
+
+#appbundle_tva_tva,#appbundle_tva_paymentMethod{
+    padding: 0px 12px 0px 12px;
+}
+
+
+/*---------------------------------------------------------------------*/
+/*----------BOOTSTRAP                                    -------------------*/
+/*---------------------------------------------------------------------*/
+
+.alerte{
+    text-align: center;
+    border: #ff5c5c 2px dashed;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: #b31b0c ;
+    color: ghostwhite ;
+    max-height: 30px;
+
+}
+
+.btn-warning{
+    font-family: "next_art_bold-webfont" ;
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #f08d00;
+    border-bottom: 2px solid #893e00;
+    padding: 1px 10px 1px 10px ;
+    box-shadow: 1px 1px 3px black;
+    transition: all 0.5s;
+}
+.btn-warning:hover{
+    border-bottom: 2px solid #893e00;
+    background-color: #ffaf00;
+    color: ghostwhite !important;
+    transform: scale(1.05);
+    text-decoration: none ;
+}
+
+.btn-success{
+    font-family: "next_art_bold-webfont" ;
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #4ac04c;
+    border-bottom: 2px solid #2e652f;
+    padding: 1px 10px 1px 10px ;
+    box-shadow: 1px 1px 3px black;
+    transition: all 0.5s;
+}
+
+.btn-success:hover{
+    border-bottom: 2px solid #2e652f;
+    background-color: #58e259;
+    color: ghostwhite !important;
+    transform: scale(1.05);
+    text-decoration: none ;
+}
+/*---------------------------------------------------------------------*/
+/*----------SELECT2                                 -------------------*/
+/*---------------------------------------------------------------------*/
+/* Input field  */
+.select2-selection__rendered {
+    color: black ;
+    text-shadow: none ;
+
+
+}
+
+
+
+/* Around the search field */
+.select2-search {
+    color: black ;
+    text-shadow: none ;
+}
+
+/* Search field */
+.select2-search input {
+    color: black ;
+    text-shadow: none ;
+}
+
+/* Each result */
+.select2-results {
+    color: black ;
+    text-shadow: none ;
+}
+
+
+/* Higlighted (hover) result */
+.select2-results__option--highlighted {
+    text-shadow: none ;
+    color: black ;
+    background-color: #00b5d1 !important;
+
+}
+
+
+/* Selected option */
+.select2-results__option[aria-selected=true] {
+    color: black ;
+    text-shadow: none ;
+}
+
+
+
+
+/*---------------------------------------------------------------------*/
+/*----------BUTTON                                  -------------------*/
+/*---------------------------------------------------------------------*/
+.btnCustomer{
+    margin: 20px 0px 20px 0px;
+}
+
+.btnEditer,.btnNewCustomer,.btnNewQuote,.btnValidate{
+    font-family: "next_art_bold-webfont"  ;
+    font-size: 15px;
+    text-align: center;
+    border-bottom: 2px solid #005d6d;
+    border-radius: 5px;
+    background-color: #00b5d1;
+    padding: 3px 20px 1px 20px ;
+    color: white;
+    box-shadow: 1px 1px 3px black;
+    transition: all 0.4s;
+}
+
+.btnEditer:hover, .btnNewCustomer:hover, .btnNewQuote:hover,.btnValidate:hover {
+    border-bottom: 2px solid #005d6d;
+    background-color: #00ddff;
+    color: white;
+    text-decoration: none ;
+    transform: scale(1.05);
+}
+
+.btnLogin{
+
+    border-bottom: 2px solid #7caaff;
+    border-radius: 5px;
+    background-color: #93bcff;
+    padding: 3px 10px 6px 10px ;
+    color: white;
+    box-shadow: 1px 1px 3px black;
+    transition: all 0.5s;
+    height: 35px;
+
+}
+
+.btnLogin:hover{
+    background-color: #7caaff;
+    text-decoration: none;
+    color: white;
+    transform: scale(1.05);
+}
+
+
+
+.btnSupprimer{
+    font-family: "next_art_bold-webfont"  ;
+    font-size: 15px;
+    text-align: center;
+    border-bottom: 2px solid rgba(137, 21, 10, 1);
+    border-radius: 5px;
+    background-color: rgba(227, 39, 19, 0.94);
+    padding: 3px 10px 1px 10px ;
+    color: white;
+    box-shadow: 1px 1px 3px black;
+    transition: all 0.5s;
+}
+
+.btnSupprimer:hover{
+    border-bottom: 2px solid rgba(137, 21, 10, 0.94);
+    background-color: rgb(255, 90, 53);
+    color: white;
+    text-decoration: none ;
+    transform: scale(1.05);
+
+}
+/*---------------------------------------------------------------------*/
+/*----------Color BTN                                    -------------------*/
+/*---------------------------------------------------------------------*/
+
+.colorEdit{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.38);
+}
+.colorEdit:hover{
+    color: white;
+    background-color: #00ddff;
+}
+
+.colorWarning{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.38);
+}
+.colorWarning:hover{
+    color: white;
+    background-color: #ffaf00;
+}
+
+.colorDanger{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.38);
+}
+.colorDanger:hover{
+    color: white;
+    background-color: rgb(255, 90, 53);
+}
+
+/*---------------------------------------------------------------------*/
+/*----------NAV                                     -------------------*/
+/*---------------------------------------------------------------------*/
+
+.navbar{
+    background-color: #232728;
+    min-height: 100px;
+}
+
+.navbar-brand{
+    padding-right: 10px;
+    background-image: url("../images/miniLogo.png");
+    width: 109px;
+    height: 83px;
+
+}
+
+.navbar-nav{
+
+    border-left: 2px solid white;
+}
+
+.nav-link{
+    color: aliceblue !important;
+}
+.nav-link:hover{
+    color: #00b5d1 !important;
+    transition: .4s;
+}
+
+.navLimit{
+    height: 4px;
+    background-color: #00b5d1;
+    margin-bottom: 10px;
+}
+
+.LinkDisconnect{
+    font-size: small;
+    text-align: center;
+
+}
+.ConnectionName{
+    padding: 0px 0px 2px 0px;
+    border-bottom: 2px solid aliceblue;
+    margin: 10px;
+}
+/*---------------------------------------------------------------------*/
+/*----------Customer                                -------------------*/
+/*---------------------------------------------------------------------*/
+.rowCustemerList{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.listCustomer{
+    margin-right: 5px;
+}
+
+.headCustomer{
+    border: 2px solid #00b5d1;
+    border-radius: 5px ;
+    background-color: #2d3132;
+}
+
+.customer{
+    border: 3px solid #00b5d1;
+    background-color: #2e4e5b;
+    border-radius: 5px ;
+    margin-top: 2px;
+    color: whitesmoke;
+    transition: all 0.4s;
+}
+
+.customer:hover{
+    border: 3px solid #00b5d1;
+    background-color: #0096b2;
+}
+
+.infoCustomer{
+
+    border: 3px solid #00b5d1;
+    border-radius: 5px ;
+    background-color: #0096b2;
+}
+
+
+
+
+
+
+.rowInfoCustomer{
+    margin: 50px 0px 50px 0px;
+}
+
+.containerInfoCustomer{
+    margin-top: 30px;
+}
+
+.fieldAddress{
+    border: 3px solid #00b5d1;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    background-color: rgba(0, 0, 0, 0.07);
+}
+
+.customerPhoneForm{
+    margin-right: 5px;
+    margin-bottom: 10px;
+    border: 3px solid #00b5d1;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.07);
+    padding-bottom: 10px;
+}
+/*---------------------------------------------------------------------*/
+/*----------QUOTE                                   -------------------*/
+/*---------------------------------------------------------------------*/
+
+.viewFormQuote{
+    border: 2px solid #bcd9ff;
+    border-radius: 5px;
+}
+.btnValiderQuote{
+    margin-top: 5px;
+}
+.rowFormQuote1{
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+
+    border: 3px solid #00b5d1;
+    background-color: rgba(0, 0, 0, 0.07);
+    border-radius: 5px;
+}
+.rowFormQuote2{
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+
+    border: 3px solid #00b5d1;
+    background-color: rgba(0, 0, 0, 0.07);
+    border-radius: 5px;
+}
+
+.products{
+    padding-bottom: 5px;
+}
+.productRow{
+    margin-bottom: 2px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border: 3px solid #00b5d1;
+    background-color: rgba(0, 0, 0, 0.07);
+    border-radius: 5px;
+}
+.add_product_link{
+    margin-top: 10px;
+}
+.btnDeleteProduct{
+    margin-top: 10px;
+    padding: 14px;
+
+}
+/*---------------------*/
+.btnSearchQuote{
+    display: none;
+}
+.resultQuoteHead{
+    border: 2px solid #00b5d1;
+    border-radius: 5px ;
+    background-color: #2d3132;
+}
+
+.resultQuote{
+    margin-right: 10px;
+    border: 3px solid #00b5d1;
+    background-color: #2e4e5b;
+    border-radius: 5px ;
+    margin-top: 2px;
+    color: whitesmoke;
+    transition: all 0.4s;
+}
+.resultQuote:hover{
+    border: 3px solid #00b5d1;
+    background-color: #0096b2;
+    text-decoration: none ;
+    color: whitesmoke !important;
+}
+
+.rowSearchQuote{
+    margin-top: 4px;
+}
+
+/*---------------------------------------------------------------------*/
+/*----------INVOICE                                 -------------------*/
+/*---------------------------------------------------------------------*/
+.btnSearchInvoice{
+    display: none;
+}
+.resultInvoice{
+    margin-right: 10px;
+    border: 3px solid #00b5d1;
+    background-color: #2e4e5b;
+    border-radius: 5px ;
+    margin-top: 2px;
+    color: whitesmoke;
+    transition: all 0.4s;
+}
+
+.resultInvoice:hover{
+    border: 3px solid #00b5d1;
+    background-color: #0096b2;
+    text-decoration: none ;
+    color: whitesmoke !important;
+}
+
+.resultInvoiceHead{
+    border: 2px solid #00b5d1;
+    border-radius: 5px ;
+    background-color: #2d3132;
+}
+
+.rowSearchInvoice{
+    margin-top: 4px;
+}
+
+/*---------------------------------------------------------------------*/
+/*----------LOGIN                                -------------------*/
+/*---------------------------------------------------------------------*/
+.fill{
+    min-height: 100%;
+    height: 100%;
+}
+
+/*---------------------------------------------------------------------*/
+/*----------SETTING                                 -------------------*/
+/*---------------------------------------------------------------------*/
+.rowUserInfo{
+    margin-top: 5px;
+}

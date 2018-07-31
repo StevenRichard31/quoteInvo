@@ -1,0 +1,93 @@
+<div id="{{ product.vars.id }}" class="productRow row  " >
+        <div style="display: none">{{ dump(product.vars.block_prefixes) }}</div>
+        <div class="col-lg-12">
+            <div class="row justify-content-around">
+                {% if form_errors(product.name) != null %}
+                    <div class="col-lg-3 alerte ">{{ form_errors(product.name) }}</div>
+                {% endif %}
+                {% if form_errors(product.quantity) != null %}
+                    <div class="col-lg-3 alerte ">{{ form_errors(product.quantity) }}</div>
+                {% endif %}
+                {% if form_errors(product.priceOutTaxe) != null %}
+                    <div class="col-lg-3 alerte ">{{ form_errors(product.priceOutTaxe) }}</div>
+                {% endif %}
+                {% if form_errors(product.percentageDiscount) != null %}
+                    <div class="col-lg-3 alerte ">{{ form_errors(product.percentageDiscount) }}</div>
+                {% endif %}
+                {% if form_errors(product.tva ) != null %}
+                        <div class="col alerte">{{ form_errors(product.tva) }}</div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg">
+            {{ form_widget(product.name, {'attr': {'placeholder': 'Nom du produit :'}}) }}
+        </div>
+        <div class="col-lg-2">
+            {{ form_widget(product.quantity, {'attr': {'placeholder': 'Quantité :'}}) }}
+        </div>
+        <div class="col-lg-2">
+            {{ form_widget(product.priceOutTaxe, {'attr': {'placeholder': 'Prix Unitaire HT :'}}) }}
+        </div>
+        <div class="col-lg-2">
+            {{ form_widget(product.percentageDiscount, {'attr': {'placeholder': 'Remise(%) :'}}) }}
+        </div>
+        <div class="col-lg-2">
+            {{ form_widget(product.tva, {'attr': {'class': 'tvaForm'}}) }}
+        </div>
+        <div class="col">
+            <span style="color: black">TTC: </span><span id="{{ product.vars.id }}_ttc" style="color: black"> </span>
+        </div>
+        <div class=" col-lg-1 btnSupprimer" onclick="deleteProduct({{ product.vars.id}})" style="margin-right: 15px">Supprimer</div>
+        {% set tva =  product.tva.vars.choices%}
+
+</div>
+
+<script type="text/javascript">
+
+
+    (function(){
+
+    })();
+        tva = {{ tva|json_encode()|raw }};
+        console.log(tva);
+
+        id = '{{ product.vars.id }}';
+        quantity = id+'_quantity';
+        priceOutTaxe = id+'_priceOutTaxe';
+        percentageDiscount = id+'_percentageDiscount';
+        tva = id+'_tva';
+        bobo = id+'_bobo';
+
+
+        console.log($('#'+quantity));
+
+
+        $('#{{ product.vars.id }}_quantity').on('keyup', function() {
+
+            const val = $('#{{ product.vars.id }}_quantity').val();
+
+            refresh(val,'#{{ product.vars.id }}_ttc');
+        });
+
+
+        $('#'+tva).on('change', function() {
+
+            idTva = $('#'+tva).val()
+
+           /* for (let i=0; 0<arrayTva.length ; i++){
+                if(arrayTva[i]['value'] =idTva){
+                    console.log(arrayTva[1]['data']['name'] );
+                }
+            }*/
+           refresh()
+        });
+
+        function refresh(val,fieldTtc){
+            // console.log($('#'+id+'_name').val());
+            ttc = null;
+             $(fieldTtc).text(val);
+        }
+        //$('#bobo').on('change', function(){console.log("a");});
+
+</script>
+
