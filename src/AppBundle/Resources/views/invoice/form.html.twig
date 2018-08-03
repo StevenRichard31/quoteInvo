@@ -2,6 +2,17 @@
 
 
 {% block body %}
+    <script type="text/javascript">
+        var priceTotal = {};
+        function countTotalTtc(priceTotal){
+            var total = 0;
+            for(element in priceTotal){
+                total += priceTotal[element];
+            }
+            return total;
+        }
+
+    </script>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm">
@@ -146,8 +157,9 @@
                         {% else %}
                             {% do form.products.setRendered %}
                         {% endfor %}
-                        <div class="row justify-content-center add_product_row" >
+                        <div class="row justify-content-between add_product_row" >
                             <div class="add_product_link col-lg-5  btn-warning" >Ajouter un produit +</div>
+                            <div class="col-3 allTotalTtc"style="border: 1px solid red" ></div>
                         </div>
                     </div>
                 </div>
@@ -240,15 +252,21 @@
         }
 
         /*----------------------------------------------------*/
-        /*------DELETE PHONE                        ----------*/
+        /*------DELETE PRODUCT                        ----------*/
         /*----------------------------------------------------*/
 
-        function deleteProduct(id){
+        function deleteProduct(id,idTtc,priceTotal){
             $(id).remove();
+            removeOneTtc(idTtc,priceTotal);
+            $('.allTotalTtc').text('Total TTC: '+ countTotalTtc(priceTotal).toFixed(2));
         }
 
+        function removeOneTtc(id,priceTotal){
+            delete priceTotal[id];
+        }
         /*------------------------------------------------------------------------------------------*/
-
+        //Initialisation du champ TTC
+        $('.allTotalTtc').text('Total TTC: '+ countTotalTtc(priceTotal).toFixed(2));
 
     </script>
 

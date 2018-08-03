@@ -1,4 +1,5 @@
-<div id="{{ product.vars.id }}" class="productRow row  " >
+<!--suppress ALL -->
+<div id="{{ product.vars.id }}" class="productRow row animated fadeIn " >
         <div style="display: none">{{ dump(product.vars.block_prefixes) }}</div>
         <div class="col-lg-12">
             <div class="row justify-content-around">
@@ -34,10 +35,10 @@
         <div class="col-lg-2">
             {{ form_widget(product.tva, {'attr': {'class': 'tvaForm'}}) }}
         </div>
-        <div class="col">
+        <div class="col-1">
             <span style="color: black">TTC: </span><span id="{{ product.vars.id }}_ttc" style="color: black"> </span>
         </div>
-        <div class=" col-lg-1 btnSupprimer" onclick="deleteProduct({{ product.vars.id}})" style="margin-right: 15px">Supprimer</div>
+        <div class=" col-lg-1 btnSupprimer" onclick="deleteProduct({{ product.vars.id}},'#{{ product.vars.id }}_ttc',priceTotal)" style="margin-right: 15px">Supprimer</div>
         {% set tva =  product.tva.vars.choices%}
 
 </div>
@@ -45,49 +46,109 @@
 <script type="text/javascript">
 
 
-    (function(){
 
-    })();
-        tva = {{ tva|json_encode()|raw }};
-        console.log(tva);
+    //création de la variable grace à window
+    window['{{ product.vars.id }}_quantity'] = $('#{{ product.vars.id }}_quantity').val();
+    window['{{ product.vars.id }}_priceOutTaxe'] = $('#{{ product.vars.id }}_priceOutTaxe').val();
+    window['{{ product.vars.id }}_percentageDiscount'] = $('#{{ product.vars.id }}_percentageDiscount').val();
+    window['{{ product.vars.id }}_tva'] = $('#{{ product.vars.id }}_tva').val();
 
-        id = '{{ product.vars.id }}';
-        quantity = id+'_quantity';
-        priceOutTaxe = id+'_priceOutTaxe';
-        percentageDiscount = id+'_percentageDiscount';
-        tva = id+'_tva';
-        bobo = id+'_bobo';
-
-
-        console.log($('#'+quantity));
-
-
-        $('#{{ product.vars.id }}_quantity').on('keyup', function() {
-
-            const val = $('#{{ product.vars.id }}_quantity').val();
-
-            refresh(val,'#{{ product.vars.id }}_ttc');
-        });
-
-
-        $('#'+tva).on('change', function() {
-
-            idTva = $('#'+tva).val()
-
-           /* for (let i=0; 0<arrayTva.length ; i++){
-                if(arrayTva[i]['value'] =idTva){
-                    console.log(arrayTva[1]['data']['name'] );
-                }
-            }*/
-           refresh()
-        });
-
-        function refresh(val,fieldTtc){
-            // console.log($('#'+id+'_name').val());
-            ttc = null;
-             $(fieldTtc).text(val);
+    tva = {{ tva|json_encode()|raw }};
+    Object.keys(tva).forEach(function(element){
+        if(tva[element]['value'] === $('#{{ product.vars.id }}_tva').val()){
+            window['{{ product.vars.id }}_tva'] = tva[element]['data']['tva']['percentage'];
         }
-        //$('#bobo').on('change', function(){console.log("a");});
+    });
+    var result = count(
+        $('#{{ product.vars.id }}_quantity').val(),
+        $('#{{ product.vars.id }}_priceOutTaxe').val(),
+        $('#{{ product.vars.id }}_percentageDiscount').val(),
+        window['{{ product.vars.id }}_tva']);
+    refresh(result,'#{{ product.vars.id }}_ttc',priceTotal);
+
+
+    $('#{{ product.vars.id }}_quantity').on('keyup', function() {
+
+        const val = $('#{{ product.vars.id }}_quantity').val();
+        let valReplace = val.replace(',','.');
+        let valeur = parseFloat(valReplace).toFixed(2);
+
+        if(Number(valeur)){
+            window['{{ product.vars.id }}_quantity'] = valeur;
+        }else{
+            window['{{ product.vars.id }}_quantity'] = 0;
+        }
+
+        var result = count(window['{{ product.vars.id }}_quantity'],window['{{ product.vars.id }}_priceOutTaxe'],window['{{ product.vars.id }}_percentageDiscount'],window['{{ product.vars.id }}_tva'])
+        refresh(result,'#{{ product.vars.id }}_ttc',priceTotal);
+    });
+
+    $('#{{ product.vars.id }}_priceOutTaxe').on('keyup', function() {
+
+        const val = $('#{{ product.vars.id }}_priceOutTaxe').val();
+        let valReplace = val.replace(',','.');
+        let valeur = parseFloat(valReplace).toFixed(2);
+
+        if(Number(valeur)){
+            window['{{ product.vars.id }}_priceOutTaxe'] = valeur;
+        }else{
+            window['{{ product.vars.id }}_priceOutTaxe'] = 0;
+        }
+
+        var result = count(window['{{ product.vars.id }}_quantity'],window['{{ product.vars.id }}_priceOutTaxe'],window['{{ product.vars.id }}_percentageDiscount'],window['{{ product.vars.id }}_tva'])
+        refresh(result,'#{{ product.vars.id }}_ttc',priceTotal);
+    });
+
+    $('#{{ product.vars.id }}_percentageDiscount').on('change', function() {
+
+        const val = $('#{{ product.vars.id }}_percentageDiscount').val();
+        let valReplace = val.replace(',','.');
+        let valeur = parseFloat(valReplace).toFixed(2);
+
+        if(Number(valeur)){
+            window['{{ product.vars.id }}_percentageDiscount'] = valeur;
+        }else{
+            window['{{ product.vars.id }}_percentageDiscount'] = 0;
+        }
+
+        var result = count(window['{{ product.vars.id }}_quantity'],window['{{ product.vars.id }}_priceOutTaxe'],window['{{ product.vars.id }}_percentageDiscount'],window['{{ product.vars.id }}_tva']);
+        refresh(result,'#{{ product.vars.id }}_ttc',priceTotal);
+    });
+
+
+    $('#{{ product.vars.id }}_tva').on('change', function() {
+        idTva = $('#{{ product.vars.id }}_tva').val();
+        window['{{ product.vars.id }}_tva']= 0;
+
+        Object.keys(tva).forEach(function(element){
+            if (tva[element]['value'] === idTva) {
+                console.log('tva trouver');
+                window['{{ product.vars.id }}_tva'] = tva[element]['data']['tva']['percentage'];
+            }
+        });
+
+        var result = count(window['{{ product.vars.id }}_quantity'],window['{{ product.vars.id }}_priceOutTaxe'],window['{{ product.vars.id }}_percentageDiscount'],window['{{ product.vars.id }}_tva']);
+        refresh(result,'#{{ product.vars.id }}_ttc',priceTotal);
+    });
+
+        function count(quantity,price,discount,tva){
+            var percentTva = tva /100;
+            var percentDiscount = discount / 100;
+            var val = quantity*price;
+            var priceDiscount =  val - (val*percentDiscount);
+            var priceWithTaxe = priceDiscount +(priceDiscount*percentTva);
+            return priceWithTaxe;
+        }
+
+        function refresh(val,fieldTtc,priceTotal){
+             $(fieldTtc).text(val.toFixed(2));
+            priceTotal[fieldTtc]= val;
+            total = countTotalTtc(priceTotal);
+            $('.allTotalTtc').text('Total TTC: '+total.toFixed(2));
+
+        }
+
+
 
 </script>
 

@@ -2,6 +2,17 @@
 
 
 {% block body %}
+    <script type="text/javascript">
+        var priceTotal = {};
+        function countTotalTtc(priceTotal){
+            var total = 0;
+            for(element in priceTotal){
+                total += priceTotal[element];
+            }
+            return total;
+        }
+
+    </script>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm">
@@ -136,7 +147,7 @@
 
                 </div>
                 <div class="products row "  data-prototype="{% filter escape %}{% include '@App/quote/template/formProduct.html.twig' with {'product': (form.products.vars.prototype)|e ('js')} %}{% endfilter %}">
-                    <div class="col-lg-12" >
+                    <div class="col-lg-12" style="border: 1px solid red" >
                         {% if form_errors(form.products) != null %}
                             <div class="row">
                                 <div class="col-lg-12 alerte">{{ form_errors(form.products) }}</div>
@@ -152,8 +163,10 @@
                         {% else %}
                             {% do form.products.setRendered %}
                         {% endfor %}
-                        <div class="row justify-content-center add_product_row" >
+
+                        <div class="row justify-content-between add_product_row" >
                             <div class="add_product_link col-lg-5  btn-warning" >Ajouter un produit +</div>
+                            <div class="col-3 allTotalTtc"style="border: 1px solid red" ></div>
                         </div>
                     </div>
                 </div>
@@ -206,7 +219,6 @@
             $newLinkLi.on('click', function(e) {
                 // prevent the link from creating a "#" on the URL
                 e.preventDefault();
-
                 // add a new tag form (see next code block)
                 addProductForm(collectionHolder);
             });
@@ -241,18 +253,25 @@
             $('.tvaForm').select2();
 
 
+
         }
 
         /*----------------------------------------------------*/
-        /*------DELETE PHONE                        ----------*/
+        /*------DELETE PRODUCT                        ----------*/
         /*----------------------------------------------------*/
 
-        function deleteProduct(id){
+        function deleteProduct(id,idTtc,priceTotal){
             $(id).remove();
-            console.log(id);
+            removeOneTtc(idTtc,priceTotal);
+            $('.allTotalTtc').text('Total TTC: '+ countTotalTtc(priceTotal).toFixed(2));
         }
 
+        function removeOneTtc(id,priceTotal){
+            delete priceTotal[id];
+        }
         /*------------------------------------------------------------------------------------------*/
+        //Initialisation du champ TTC
+        $('.allTotalTtc').text('Total TTC: '+ countTotalTtc(priceTotal).toFixed(2));
 
 
     </script>
