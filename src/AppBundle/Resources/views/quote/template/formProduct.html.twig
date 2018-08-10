@@ -1,5 +1,5 @@
 <!--suppress ALL -->
-<div id="{{ product.vars.id }}" class="productRow row animated fadeIn " >
+<div id="{{ product.vars.id }}" class="productRow row animated fadeIn  ">
         <div style="display: none">{{ dump(product.vars.block_prefixes) }}</div>
         <div class="col-lg-12">
             <div class="row justify-content-around">
@@ -30,7 +30,7 @@
             {{ form_widget(product.priceOutTaxe, {'attr': {'placeholder': 'Prix Unitaire HT :'}}) }}
         </div>
         <div class="col-lg-2">
-            {{ form_widget(product.percentageDiscount, {'attr': {'placeholder': 'Remise(%) :'}}) }}
+            {{ form_widget(product.percentageDiscount, {'attr': {'placeholder': 'Remise(%) :','class': 'percentageDiscountForm'}}) }}
         </div>
         <div class="col-lg-2">
             {{ form_widget(product.tva, {'attr': {'class': 'tvaForm'}}) }}
@@ -38,7 +38,9 @@
         <div class="col-1">
             <span style="color: black">TTC: </span><span id="{{ product.vars.id }}_ttc" style="color: black"> </span>
         </div>
-        <div class=" col-lg-1 btnSupprimer" onclick="deleteProduct({{ product.vars.id}},'#{{ product.vars.id }}_ttc',priceTotal)" style="margin-right: 15px">Supprimer</div>
+        <div class=" btnSupprimer" onclick="deleteProduct({{ product.vars.id}},'#{{ product.vars.id }}_ttc',priceTotal)" style="margin-right: 15px">
+            <i class="far fa-trash-alt"></i>
+        </div>
         {% set tva =  product.tva.vars.choices%}
 
 </div>

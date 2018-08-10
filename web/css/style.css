@@ -8,7 +8,8 @@
     url("fonts/next_art_bold-webfont.woff") format("woff");
 }
 
-html, body {
+
+html, body ,.container{
     height: 100%;
     background-color: #e3f6ff;
 }
@@ -29,11 +30,11 @@ h3{
 
 h1,h2,h3,h4,h5{
     font-family: "next_art_bold-webfont" ;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+
 }
 h5{
     color: white;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+
 }
 
 .fontArt{
@@ -50,7 +51,7 @@ h1,h2,h3,h4,label{
 span,p{
     color: ghostwhite ;
     font-size: 17px ;
-    text-shadow:2px 2px 2px rgba(0, 0, 0, 0.5);
+
 }
 
 input{
@@ -91,16 +92,12 @@ select{
     text-align: center;
     border-radius: 5px;
     background-color: #f08d00;
-    border-bottom: 2px solid #893e00;
     padding: 1px 10px 1px 10px ;
-    box-shadow: 1px 1px 3px black;
     transition: all 0.5s;
 }
 .btn-warning:hover{
-    border-bottom: 2px solid #893e00;
     background-color: #ffaf00;
     color: ghostwhite !important;
-    transform: scale(1.05);
     text-decoration: none ;
 }
 
@@ -113,7 +110,7 @@ select{
     background-color: #4ac04c;
     border-bottom: 2px solid #2e652f;
     padding: 1px 10px 1px 10px ;
-    box-shadow: 1px 1px 3px black;
+
     transition: all 0.5s;
 }
 
@@ -190,7 +187,6 @@ select{
     background-color: #00b5d1;
     padding: 3px 20px 1px 20px ;
     color: white;
-    box-shadow: 1px 1px 3px black;
     transition: all 0.4s;
 }
 
@@ -209,7 +205,6 @@ select{
     background-color: #93bcff;
     padding: 3px 10px 6px 10px ;
     color: white;
-    box-shadow: 1px 1px 3px black;
     transition: all 0.5s;
     height: 35px;
 
@@ -228,21 +223,17 @@ select{
     font-family: "next_art_bold-webfont"  ;
     font-size: 15px;
     text-align: center;
-    border-bottom: 2px solid rgba(137, 21, 10, 1);
     border-radius: 5px;
-    background-color: rgba(227, 39, 19, 0.94);
+    background-color: #bc1d0e;
     padding: 3px 10px 1px 10px ;
     color: white;
-    box-shadow: 1px 1px 3px black;
     transition: all 0.5s;
 }
 
 .btnSupprimer:hover{
-    border-bottom: 2px solid rgba(137, 21, 10, 0.94);
-    background-color: rgb(255, 90, 53);
+    background-color: #f7200e;
     color: white;
     text-decoration: none ;
-    transform: scale(1.05);
 
 }
 /*---------------------------------------------------------------------*/
@@ -279,7 +270,7 @@ select{
 /*---------------------------------------------------------------------*/
 /*----------NAV                                     -------------------*/
 /*---------------------------------------------------------------------*/
-
+/*
 .navbar{
     background-color: #232728;
     min-height: 100px;
@@ -288,8 +279,8 @@ select{
 .navbar-brand{
     padding-right: 10px;
     background-image: url("../images/miniLogo.png");
-    width: 109px;
-    height: 83px;
+    width: 91px;
+    height: 65px;
 
 }
 
@@ -389,6 +380,7 @@ select{
     background-color: rgba(0, 0, 0, 0.07);
     padding-bottom: 10px;
 }
+
 /*---------------------------------------------------------------------*/
 /*----------QUOTE                                   -------------------*/
 /*---------------------------------------------------------------------*/
@@ -401,25 +393,26 @@ select{
     margin-top: 5px;
 }
 .rowFormQuote1{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding-bottom: 5px;
 
-    border: 3px solid #00b5d1;
-    background-color: rgba(0, 0, 0, 0.07);
+    /*border: 3px solid #00b5d1;*/
+    background-color: #00b5d1;
     border-radius: 5px;
 }
 .rowFormQuote2{
     margin-bottom: 5px;
-    padding-bottom: 5px;
+    padding-bottom: 7px;
 
-    border: 3px solid #00b5d1;
-    background-color: rgba(0, 0, 0, 0.07);
+    /*border: 3px solid #00b5d1;*/
+    background-color: #00b5d1;
     border-radius: 5px;
 }
 
 .products{
     padding-bottom: 5px;
 }
+/*
 .productRow{
     margin-bottom: 2px;
     padding-bottom: 5px;
@@ -427,6 +420,13 @@ select{
     border: 3px solid #00b5d1;
     background-color: rgba(0, 0, 0, 0.07);
     border-radius: 5px;
+}*/
+
+.productRow{
+    border-bottom:2px solid #00b5d1;
+    padding: 3px 0px;
+    background-color: rgba(0, 0, 0, 0.11);
+
 }
 .add_product_link{
     margin-top: 10px;
@@ -434,6 +434,17 @@ select{
 .btnDeleteProduct{
     margin-top: 10px;
     padding: 14px;
+
+}
+.allTotalTtc{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.07);
+    border-radius: 5px;
+    font-weight: bold;
+    height: 24px;
+    margin-top: 10px;
 
 }
 /*---------------------*/
@@ -583,4 +594,154 @@ md-perspective,
 .md-show.md-effect-5 .md-content {
     transform: scale(1) rotate(0deg);
     opacity: 1;
+}
+
+/*---------------------------------------------------------------------*/
+/*----------NAV                                 -------------------*/
+/*---------------------------------------------------------------------*/
+
+.header{
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 70px;
+    background-color: #2d3132 ;
+    z-index: 1000;
+    justify-content: space-between;
+
+}
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    background-color: #171b1c;
+}
+
+
+.brand{
+    padding-right: 10px;
+    background-image: url("../images/miniLogo.png");
+    width: 91px;
+    height: 65px;
+
+}
+.LinkDisconnect{
+    font-size: small;
+    text-align: center;
+
+}
+.LinkDisconnect a:hover{
+    transition: all 0.3s;
+    color: #00b5d1;
+}
+.navLinkDisconnect{
+    display: none;
+}
+.ConnectionName{
+    padding: 0px 0px 2px 0px;
+    border-bottom: 2px solid aliceblue;
+    margin: 10px;
+}
+.container-nav{
+    position: fixed;
+    height: 100%;
+    width: 200px;
+    padding-top: 70px;
+    background-color: #2d3132;
+    z-index: 2;
+    transition: all 0.5s;
+}
+nav ul {
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li{
+    list-style: none;
+    border-bottom: 1px solid #00b5d1;
+    padding: 15px;
+}
+nav ul li i{
+    font-size: 20px;
+    color: #00b5d1;
+}
+nav ul li a:hover{
+    text-decoration: none;
+}
+
+
+.main-content{
+    margin-left: 200px;
+    padding-top: 70px;
+    min-height: 100vh;
+}
+
+.main-container{
+    height: 100%;
+
+}
+.iconBar{
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 23px;
+    display: none;
+    transition: all 0.5s;
+}
+.iconBar:hover{
+    color: #00b5d1;
+    transition: all 0.1s;
+}
+.fa-bars:hover{
+    color: #00b5d1;
+    transition: all 0.1s;
+}
+
+@media screen and (max-width: 1000px) and (min-width: 500px) {
+    .container-nav{
+        width: 80px;
+        transition: all 0.5s;
+    }
+    nav ul li {
+        text-align: center;
+    }
+    nav ul li span:nth-child(2){
+        display: none;
+    }
+    .main-content{
+        margin-left: 80px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .header{
+        background-color: #171b1c;
+    }
+    .container-nav{
+        display: none;
+        transition: all 0.5s;
+    }
+    .main-content{
+        margin-left: 0px;
+    }
+    .logo{
+        width: 100px;
+    }
+
+    .header .LinkDisconnect{
+        display: none;
+    }
+    .navLinkDisconnect{
+        display: block;
+        text-align: center;
+        padding: 0px;
+    }
+    .navLinkDisconnect a:hover{
+        transition: all 0.3s;
+        color: #00b5d1;
+    }
+    .iconBar{
+        display: block;
+    }
+
 }

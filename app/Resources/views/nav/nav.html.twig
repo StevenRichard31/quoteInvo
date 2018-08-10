@@ -1,4 +1,4 @@
-
+{#
 <nav class=" navbar navbar-expand-lg navbar-dark  navbar-toggleable-sm  " >
     <a class="navbar-brand fontArt" href="{{ path("homepage") }}"></a>
     {% if is_granted("ROLE_ADMIN") %}
@@ -23,6 +23,7 @@
             </ul>
         </div>
     {% endif %}
+
     <div class="LinkDisconnect ">
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             <span class="ConnectionName">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</span><br>
@@ -33,5 +34,43 @@
     </div>
 
 </nav>
-<div class="navLimit"> </div>
+<div class="navLimit"> </div>#}
+
+
+    <nav>
+        <ul>
+            <li class="navLinkDisconnect ">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <span class="ConnectionName">{{ app.user.username }} : </span><br>
+                    <a class="nav-link fontArt" href="{{ path('fos_user_security_logout') }}">
+                        {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                    </a>
+                {% endif %}
+            </li>
+            <li>
+                <a href="{{ path("customer.index") }}">
+                    <span><i class="far fa-address-card "></i></span>
+                    <span class="fontArt">CLIENTS</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path("quote.index") }}">
+                    <span><i class="far fa-file-alt "></i></span>
+                    <span class="fontArt">DEVIS</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path("invoice.index") }}">
+                    <span><i class="fa fa-file-invoice-dollar "></i></span>
+                    <span class="fontArt">FACTURES</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path("setting.index") }}">
+                    <span><i class="fa fa-ellipsis-v "></i></span>
+                    <span class="fontArt">PARAMÊTRES</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 

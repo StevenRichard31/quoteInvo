@@ -147,7 +147,7 @@
 
                 </div>
                 <div class="products row "  data-prototype="{% filter escape %}{% include '@App/quote/template/formProduct.html.twig' with {'product': (form.products.vars.prototype)|e ('js')} %}{% endfilter %}">
-                    <div class="col-lg-12" style="border: 1px solid red" >
+                    <div class="col-lg-12"  >
                         {% if form_errors(form.products) != null %}
                             <div class="row">
                                 <div class="col-lg-12 alerte">{{ form_errors(form.products) }}</div>
@@ -158,15 +158,16 @@
                                 <h3>Produit(s) :</h3>
                             </div>
                         </div>
+
                         {% for product in form.products %}
                             {% include '@App/quote/template/formProduct.html.twig'%}
                         {% else %}
                             {% do form.products.setRendered %}
                         {% endfor %}
 
-                        <div class="row justify-content-between add_product_row" >
-                            <div class="add_product_link col-lg-5  btn-warning" >Ajouter un produit +</div>
-                            <div class="col-3 allTotalTtc"style="border: 1px solid red" ></div>
+                        <div class="row justify-content-between add_product_row"  >
+                            <div class="add_product_link col-lg-3  btn-warning" >Ajouter un produit +</div>
+                            <div class="col-lg-2 allTotalTtc" ></div>
                         </div>
                     </div>
                 </div>
@@ -202,6 +203,7 @@
             $('.customerFormQuote').select2();
             $('.paymentMethodFormQuote').select2();
             $('.tvaForm').select2();
+
 
 
             /*----------------------------------------------------*/
@@ -272,6 +274,8 @@
         /*------------------------------------------------------------------------------------------*/
         //Initialisation du champ TTC
         $('.allTotalTtc').text('Total TTC: '+ countTotalTtc(priceTotal).toFixed(2));
+
+
 
 
     </script>

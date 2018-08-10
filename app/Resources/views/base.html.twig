@@ -13,14 +13,49 @@
         {% endblock %}
         <link href="{{ asset('vendor/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
         <link rel="stylesheet" href="{{ asset('css/animated.css')  }}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/style.css')  }}">
     </head>
     <body>
-        {% include "nav/nav.html.twig" %}
 
 
-        {% block body %}
-        {% endblock %}
+
+
+    <div class="header">
+        <div class="logo">
+            <div class="brand"></div>
+        </div>
+        <div class="LinkDisconnect ">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <span class="ConnectionName">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</span><br>
+                <a class="nav-link fontArt" href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+            {% endif %}
+        </div>
+        <span class="fa-stack iconBar">
+            <i class="far fa-square fa-stack-2x" ></i>
+            <i class="fas fa-bars fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="container-fluid containerAll ">
+        <div class=" row main-container">
+
+            <div class="container-nav  " >
+
+                {% include "nav/nav.html.twig" %}
+
+            </div>
+
+            <div class="main-content col-lg col-md col-sm">
+
+                {% block body %}
+                {% endblock %}
+
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -29,6 +64,31 @@
         {% block script %}
         {% endblock %}
 
+        <script>
+            $(document).ready(function() {
+                $('.nav-trigger').click(function() {
+                    $('.side-nav').toggleClass('visible');
+                });
+
+                //display navBar with phone screen
+                $('.iconBar').click(function() {
+                    var nav = $('.container-nav');
+                    if($('.container-nav').is(':hidden')){
+                        $('.container-nav').css('display', 'block');
+                        $('.container-nav').removeClass("animated fadeOutLeft");
+                        $('.container-nav').addClass("animated fadeInLeft");
+                    }
+                    else{
+                        $('.container-nav').removeClass("animated fadeInLeft");
+                        $('.container-nav').addClass("animated fadeOutLeft");
+                        setTimeout(function(){ $('.container-nav').css('display', 'none'); }, 1000);
+
+
+                    }
+
+                });
+            });
+        </script>
     </body>
 
 </html>
