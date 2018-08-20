@@ -47,6 +47,7 @@
                     </a>
                 {% endif %}
             </li>
+            {% if is_granted("ROLE_ADMIN") %}
             <li>
                 <a href="{{ path("customer.index") }}">
                     <span><i class="far fa-address-card "></i></span>
@@ -71,6 +72,7 @@
                     <span class="fontArt">PARAMÊTRES</span>
                 </a>
             </li>
+            {% endif %}
         </ul>
     </nav>
 

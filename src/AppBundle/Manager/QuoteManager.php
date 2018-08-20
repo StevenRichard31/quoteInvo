@@ -11,6 +11,7 @@ namespace AppBundle\Manager;
 use AppBundle\Entity\Quote;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\RegistryInterface as Doctrine;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class QuoteManager
 {
@@ -95,7 +96,11 @@ class QuoteManager
         if ($quote->getProducts()->isEmpty()){
             $this->error = 'Ajouter au moins un produit';
         }
-        return $this->error;
+
+        if($this->error != null){
+            throw new Exception($this->error);
+        }
+        //return $this->error;
     }
 
     public function updateQuoteProducts($quote){

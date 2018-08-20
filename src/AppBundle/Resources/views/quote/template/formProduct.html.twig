@@ -45,17 +45,16 @@
 
 </div>
 
-<script type="text/javascript">
 
-
-
+<script>
     //création de la variable grace à window
     window['{{ product.vars.id }}_quantity'] = $('#{{ product.vars.id }}_quantity').val();
     window['{{ product.vars.id }}_priceOutTaxe'] = $('#{{ product.vars.id }}_priceOutTaxe').val();
     window['{{ product.vars.id }}_percentageDiscount'] = $('#{{ product.vars.id }}_percentageDiscount').val();
     window['{{ product.vars.id }}_tva'] = $('#{{ product.vars.id }}_tva').val();
-
     tva = {{ tva|json_encode()|raw }};
+
+
     Object.keys(tva).forEach(function(element){
         if(tva[element]['value'] === $('#{{ product.vars.id }}_tva').val()){
             window['{{ product.vars.id }}_tva'] = tva[element]['data']['tva']['percentage'];
@@ -133,24 +132,21 @@
         refresh(result,'#{{ product.vars.id }}_ttc',priceTotal);
     });
 
-        function count(quantity,price,discount,tva){
-            var percentTva = tva /100;
-            var percentDiscount = discount / 100;
-            var val = quantity*price;
-            var priceDiscount =  val - (val*percentDiscount);
-            var priceWithTaxe = priceDiscount +(priceDiscount*percentTva);
-            return priceWithTaxe;
-        }
+    function count(quantity,price,discount,tva){
+        var percentTva = tva /100;
+        var percentDiscount = discount / 100;
+        var val = quantity*price;
+        var priceDiscount =  val - (val*percentDiscount);
+        var priceWithTaxe = priceDiscount +(priceDiscount*percentTva);
+        return priceWithTaxe;
+    }
 
-        function refresh(val,fieldTtc,priceTotal){
-             $(fieldTtc).text(val.toFixed(2));
-            priceTotal[fieldTtc]= val;
-            total = countTotalTtc(priceTotal);
-            $('.allTotalTtc').text('Total TTC: '+total.toFixed(2));
+    function refresh(val,fieldTtc,priceTotal){
+        $(fieldTtc).text(val.toFixed(2));
+        priceTotal[fieldTtc]= val;
+        total = countTotalTtc(priceTotal);
+        $('.allTotalTtc').text('Total TTC: '+total.toFixed(2));
 
-        }
-
-
-
+    }
 </script>
 

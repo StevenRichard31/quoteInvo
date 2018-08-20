@@ -33,7 +33,7 @@ class PaymentMethodManager
     }
 
     public function add($paymentM){
-        //si l'information est valide on perste l'information
+        //si l'information est valide on persiste l'information
         $em = $this->doctrine->getManager();
         //persistance ne marche que sur des objets vide, ne creer pas d'erreur pour autant
         $em->persist($paymentM);

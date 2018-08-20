@@ -22,6 +22,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -69,10 +70,11 @@ class QuoteController extends Controller
         $generatorManager = $this->get(GeneratorNumberQuoteManager::class);
 
         if ($quote === null){
+            //instanciation devis
             $quote = $quoteManager->create();
         }
         else{
-            //si ce n'est pas un admin ou que l'on ne trouve pas le devis
+            //si ce n'est pas un admin
             if( ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN') === false)){
                 return $this->redirectToRoute("quote.index");
             }
@@ -104,11 +106,19 @@ class QuoteController extends Controller
 
         if($formQuote->isSubmitted() && $formQuote->isValid()) {
             //check les informations du devis
+            /*
             $error = $quoteManager->checks($quote);
             if( $error != null){
-                return $this->render('@App/quote/form.html.twig', ["form" => $formQuote->createView(),"quote" => $quote, "error" => $error]);
+                return $this->render('@App/quote/form.html.twig', ["form" => $formQuote->createView(), "error" => $error]);
             }
-
+            */
+            try{
+                $quoteManager->checks($quote);
+            }
+            catch(Exception $e){
+                $error = 'Exception : '.$e->getMessage();
+                return $this->render('@App/quote/form.html.twig', ["form" => $formQuote->createView(), "error" => $error]);
+            }
             //verifie si la collection de produit à changer
            $quoteManager->updateQuoteProducts($quote);
 
@@ -125,7 +135,7 @@ class QuoteController extends Controller
             return $this->redirectToRoute("quote.index");
         }
 
-        return $this->render('@App/quote/form.html.twig', ["form" => $formQuote->createView(),"quote" => $quote, "error" =>  null]);
+        return $this->render('@App/quote/form.html.twig', ["form" => $formQuote->createView(), "error" =>  null]);
     }
 
     /**
