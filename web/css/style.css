@@ -182,7 +182,6 @@ select{
     font-family: "next_art_bold-webfont"  ;
     font-size: 15px;
     text-align: center;
-    border-bottom: 2px solid #005d6d;
     border-radius: 5px;
     background-color: #00b5d1;
     padding: 3px 20px 1px 20px ;
@@ -191,11 +190,9 @@ select{
 }
 
 .btnEditer:hover, .btnNewCustomer:hover, .btnNewQuote:hover,.btnValidate:hover {
-    border-bottom: 2px solid #005d6d;
     background-color: #00ddff;
     color: white;
     text-decoration: none ;
-    transform: scale(1.05);
 }
 
 .btnLogin{
@@ -626,15 +623,16 @@ md-perspective,
     height: 65px;
 
 }
+
 .LinkDisconnect{
     font-size: small;
     text-align: center;
-
 }
 .LinkDisconnect a:hover{
     transition: all 0.3s;
     color: #00b5d1;
 }
+
 .navLinkDisconnect{
     display: none;
 }
@@ -661,7 +659,7 @@ nav ul {
 nav ul li{
     list-style: none;
     border-bottom: 1px solid #00b5d1;
-    padding: 15px;
+    padding: 0px;
     transition: all 0.4s;
 }
 nav ul li:hover{
@@ -671,8 +669,17 @@ nav ul li i{
     font-size: 20px;
     color: #00b5d1;
 }
+nav ul li a{
+    display: block;
+    padding: 15px;
+    alignment-baseline: auto;
+}
 nav ul li a:hover{
     text-decoration: none;
+}
+
+nav ul li a span{
+    padding: 0px 5px;
 }
 
 
@@ -701,6 +708,8 @@ nav ul li a:hover{
     color: #00b5d1;
     transition: all 0.1s;
 }
+
+
 
 @media screen and (max-width: 1000px) and (min-width: 500px) {
     .container-nav{

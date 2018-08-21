@@ -69,7 +69,7 @@
                                         {% if quote.invoice_id == null %}
                                             <a class="dropdown-item colorWarning text-center" href="{{ path('invoice.form.withQuote', {idQuote: quote.quoteID}) }}" style="margin:2px 10px 0px 0px">Créer facture</a>
                                         {% endif %}
-                                        <a class="dropdown-item colorDanger text-center" href="{{ path("quote.delete", {id: quote.quoteID}) }}" style="margin:4px 10px 0px 0px" >Supprimer</a>
+                                        <a class="dropdown-item colorDanger text-center" data-toggle="modal" data-target="#exampleModal" data-whatever="{{ path("quote.delete", {id: quote.quoteID}) }}" style="margin:4px 10px 0px 0px;color: white" >Supprimer</a>
                                     </div>
 
                             {% endif %}
@@ -83,16 +83,22 @@
 
     </div>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span style="color: black">Êtes-vous sûr de vouloir supprimer ce devis?</span>
+                </div>
+
+                <div class="modal-footer" >
+                    <button type="button" class="btn btn-secondary fontArt col-4" data-dismiss="modal">Fermer</button>
+                    <a class="btnSupprimer" href="#">Supprimer</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-
-
+    <script src="{{ asset('js/quote/index.js') }}"></script>
 {% endblock %}
 
-{% block script %}
-    <script>
-
-
-    </script>
-
-{% endblock %}

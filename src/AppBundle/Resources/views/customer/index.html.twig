@@ -68,7 +68,7 @@
                         </div>
                         <div class="col-md-6 ">
                             <div class="row justify-content-center">
-                                <a class="btnSupprimer" href="{{ path("customer.delete", {id: customer.id}) }}">Supprimer</a>
+                                <div class="btnSupprimer" data-toggle="modal" data-target="#exampleModal" data-whatever="{{ path("customer.delete", {id: customer.id}) }}">Supprimer</div>
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                             <span>{{customer.name}}</span><br>
                             <br>
                             <h5>Mail:</h5>
-                            <span>{% if customer.mail == null %} ...Non renseigner... {% else %} {{customer.mail }} {% endif %} </span><br>
+                            <span>{% if customer.mail == null %} ...Non renseigné... {% else %} {{customer.mail }} {% endif %} </span><br>
                             <br>
                             <h5>Adresse:</h5>
                             <span> <bold>Rue:</bold>  {{customer.address.getStreet }}</span><br>
@@ -106,6 +106,27 @@
 
     </div>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span style="color: black">Êtes-vous sûr de vouloir supprimer ce client?</span>
+                </div>
+
+                <div class="modal-footer" >
+                        <button type="button" class="btn btn-secondary fontArt col-4" data-dismiss="modal">Fermer</button>
+                        <a class="btnSupprimer" href="#">Supprimer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
     <script src="{{ asset('js/customer/index.js') }}"></script>
+
+
+
 {% endblock %}
 
