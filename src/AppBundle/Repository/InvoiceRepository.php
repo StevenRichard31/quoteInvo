@@ -23,23 +23,7 @@ class InvoiceRepository extends EntityRepository
         $stmt->execute();
         return $stmt->fetchAll();
     }
-/*
-    public function findInvoiceByID($invoiceId){
 
-        $sql = "select *,invoice.id as documentID, customer.name as customerName, tva.name as tvaName, payment_method.name as paymentMethodName, product.name as productName, number_invoice as numberDocument from invoice
-                inner join customer on customer.id = customer_id
-                inner join address on address_id = address.id
-                inner join tva on tva_id = tva.id 
-                inner join payment_method on payment_method_id = payment_method.id
-                inner join invoice_product on  invoice_id = invoice.id
-                inner join product on product_id = product.id
-                where invoice.id = :invoiceId";
-
-        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
-        $stmt->execute(['invoiceId' => $invoiceId]);
-        return $stmt->fetchAll();
-    }
-*/
     public function findInvoiceByID($invoiceId){
 
         return $this->getEntityManager()
@@ -92,5 +76,24 @@ class InvoiceRepository extends EntityRepository
         $stmt->bindParam('limitMax', $limitMax, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll();
+    }
+
+    public function findInvoicesNotPaid(){
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT i FROM AppBundle:Invoice i
+                      where i.paid = false
+                      '
+            )
+            ->getResult();
+    }
+
+    public function invoicePaid($id)
+    {
+        $sql = "UPDATE invoice
+                SET paid = true 
+                WHERE id = :id";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->execute(['id' => $id]);
     }
 }

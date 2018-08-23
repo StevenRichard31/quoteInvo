@@ -7,15 +7,32 @@
     url("fonts/next_art_bold-webfont.woff2") format("woff2"),
     url("fonts/next_art_bold-webfont.woff") format("woff");
 }
+@font-face {
+    font-family: "Roboto-Regular";
+    src:url("fonts/Roboto-Regular/Roboto-Regular.ttf") format("ttf"),
+    url("fonts/Roboto-Regular/roboto-regular.woff2") format("woff2"),
+    url("fonts/Roboto-Regular/roboto-regular.woff") format("woff");
+}
+@font-face {
+    font-family: "Roboto-Black";
+    src:url("fonts/Roboto-Black.ttf") format("ttf");
+}
+@font-face {
+    font-family: "Roboto-Bold";
+    src:url("fonts/Roboto-Bold/Roboto-Bold.ttf") format("ttf"),
+    url("fonts/Roboto-Bold/roboto-bold-webfont.woff2") format("woff2"),
+    url("fonts/Roboto-Bold/roboto-bold-webfont.woff") format("woff");
+}
+
 
 
 html, body ,.container{
     height: 100%;
-    background-color: #e3f6ff;
+    background-color: white;
 }
 
 label{
-    font-family: "next_art_bold-webfont"  ;
+    font-family: "Roboto-Regular"  ;
     font-size: smaller;
 }
 h1{
@@ -29,7 +46,7 @@ h3{
 }
 
 h1,h2,h3,h4,h5{
-    font-family: "next_art_bold-webfont" ;
+    font-family: "Roboto-Bold" ;
 
 }
 h5{
@@ -38,7 +55,12 @@ h5{
 }
 
 .fontArt{
-    font-family: "next_art_bold-webfont"  ;
+    font-family: "Roboto-Regular"  ;
+    font-size: 15px;
+    color: white;
+}
+.fontArtBold{
+    font-family: "Roboto-Bold"  ;
     font-size: 15px;
     color: white;
 }
@@ -49,7 +71,8 @@ h1,h2,h3,h4,label{
 
 
 span,p{
-    color: ghostwhite ;
+    font-family: "Roboto-Regular";
+    color: #333333;
     font-size: 17px ;
 
 }
@@ -68,11 +91,140 @@ select{
 #appbundle_tva_tva,#appbundle_tva_paymentMethod{
     padding: 0px 12px 0px 12px;
 }
+/*---------------------------------------------------------------------*/
+/*----------Animation                                   -------------------*/
+/*---------------------------------------------------------------------*/
+.rotation {
+    -webkit-animation: rotation 2s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(359deg);
+    }
+}
+
+@-webkit-keyframes spin{
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes spin-reverse{
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(-360deg);
+    }
+}
 
 
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    overflow: hidden;
+}
+.no-js #loader-wrapper {
+    display: none;
+}
+#loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #16a085;
+    animation: spin 1.7s linear infinite;
+    z-index: 11;
+}
+
+#loader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #e74c3c;
+    animation: spin-reverse .6s linear infinite;
+}
+
+#loader:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #f9c922;
+    animation: spin 1s linear infinite;
+}
+#loader-wrapper .loader-section {
+    position: fixed;
+    top: 0;
+    width: 51%;
+    height: 100%;
+    background: #222;
+    z-index: 10;
+}
+#loader-wrapper .loader-section.section-left {
+    left: 0;
+}
+#loader-wrapper .loader-section.section-right {
+    right: 0;
+}
+.loaded #loader-wrapper .loader-section.section-left {
+    transform: translateX(-100%);
+    transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.loaded #loader-wrapper .loader-section.section-right {
+    transform: translateX(100%);
+    transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.loaded #loader {
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+.loaded #loader-wrapper {
+    visibility: hidden;
+    transform: translateY(-100%);
+    transition: all 0.3s 1s ease-out;
+}
 /*---------------------------------------------------------------------*/
 /*----------BOOTSTRAP                                    -------------------*/
 /*---------------------------------------------------------------------*/
+.table{
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px black ;
+
+}
+thead tr th{
+    border-top: none !important;
+}
+
+.trSelect:hover{
+    background-color: rgba(0, 181, 209, 0.24) !important;
+    cursor: pointer;
+}
+
 
 .alerte{
     text-align: center;
@@ -86,14 +238,14 @@ select{
 }
 
 .btn-warning{
-    font-family: "next_art_bold-webfont" ;
+    font-family: "Roboto-Bold" ;
     color: white;
     font-size: 15px;
     text-align: center;
     border-radius: 5px;
     background-color: #f08d00;
-    padding: 1px 10px 1px 10px ;
-    transition: all 0.5s;
+    padding: 3px 10px 3px 10px ;
+    transition: all 0.3s;
 }
 .btn-warning:hover{
     background-color: #ffaf00;
@@ -102,23 +254,21 @@ select{
 }
 
 .btn-success{
-    font-family: "next_art_bold-webfont" ;
+    font-family: "Roboto-Bold" ;
     color: white;
     font-size: 15px;
     text-align: center;
     border-radius: 5px;
     background-color: #4ac04c;
     border-bottom: 2px solid #2e652f;
-    padding: 1px 10px 1px 10px ;
-
-    transition: all 0.5s;
+    padding: 3px 10px 3px 10px ;
+    transition: all 0.3s;
 }
 
 .btn-success:hover{
     border-bottom: 2px solid #2e652f;
     background-color: #58e259;
     color: ghostwhite !important;
-    transform: scale(1.05);
     text-decoration: none ;
 }
 /*---------------------------------------------------------------------*/
@@ -179,14 +329,14 @@ select{
 }
 
 .btnEditer,.btnNewCustomer,.btnNewQuote,.btnValidate{
-    font-family: "next_art_bold-webfont"  ;
+    font-family: "Roboto-Bold"  ;
     font-size: 15px;
     text-align: center;
     border-radius: 5px;
     background-color: #00b5d1;
-    padding: 3px 20px 1px 20px ;
+    padding: 3px 15px 3px 15px ;
     color: white;
-    transition: all 0.4s;
+    transition: all 0.3s;
 }
 
 .btnEditer:hover, .btnNewCustomer:hover, .btnNewQuote:hover,.btnValidate:hover {
@@ -200,9 +350,9 @@ select{
     border-bottom: 2px solid #7caaff;
     border-radius: 5px;
     background-color: #93bcff;
-    padding: 3px 10px 6px 10px ;
+    padding: 3px 10px 3px 10px ;
     color: white;
-    transition: all 0.5s;
+    transition: all 0.3s;
     height: 35px;
 
 }
@@ -211,20 +361,19 @@ select{
     background-color: #7caaff;
     text-decoration: none;
     color: white;
-    transform: scale(1.05);
 }
 
 
 
 .btnSupprimer{
-    font-family: "next_art_bold-webfont"  ;
+    font-family: "Roboto-Bold"  ;
     font-size: 15px;
     text-align: center;
     border-radius: 5px;
     background-color: #bc1d0e;
-    padding: 3px 10px 1px 10px ;
+    padding: 3px 10px 3px 10px ;
     color: white;
-    transition: all 0.5s;
+    transition: all 0.3s;
 }
 
 .btnSupprimer:hover{
@@ -263,73 +412,40 @@ select{
     color: white;
     background-color: rgb(255, 90, 53);
 }
-
 /*---------------------------------------------------------------------*/
-/*----------NAV                                     -------------------*/
+/*----------Color                                   -------------------*/
 /*---------------------------------------------------------------------*/
-/*
-.navbar{
-    background-color: #232728;
-    min-height: 100px;
+.green{
+    color: rgb(99, 192, 98) !important;
 }
-
-.navbar-brand{
-    padding-right: 10px;
-    background-image: url("../images/miniLogo.png");
-    width: 91px;
-    height: 65px;
-
+.orange{
+    color: rgb(255, 200, 90) !important;
 }
-
-.navbar-nav{
-
-    border-left: 2px solid white;
-}
-
-.nav-link{
-    color: aliceblue !important;
-}
-.nav-link:hover{
-    color: #00b5d1 !important;
-    transition: .4s;
-}
-
-.navLimit{
-    height: 4px;
-    background-color: #00b5d1;
-    margin-bottom: 10px;
-}
-
-.LinkDisconnect{
-    font-size: small;
-    text-align: center;
-
-}
-.ConnectionName{
-    padding: 0px 0px 2px 0px;
-    border-bottom: 2px solid aliceblue;
-    margin: 10px;
+.red{
+    color: rgb(255, 90, 53) !important;
 }
 /*---------------------------------------------------------------------*/
 /*----------Customer                                -------------------*/
 /*---------------------------------------------------------------------*/
+.fa-plus{
+    font-size: 15px;
+    margin-right: 5px;
+}
 .rowCustemerList{
     margin-right: 10px;
     margin-left: 10px;
 }
 
-.listCustomer{
+.listCustomer,listQuote,listInvoice{
     margin-right: 5px;
 }
 
 .headCustomer{
-    border: 2px solid #00b5d1;
     border-radius: 5px ;
     background-color: #2d3132;
 }
 
 .customer{
-    border: 3px solid #00b5d1;
     background-color: #2e4e5b;
     border-radius: 5px ;
     margin-top: 2px;
@@ -338,15 +454,12 @@ select{
 }
 
 .customer:hover{
-    border: 3px solid #00b5d1;
-    background-color: #0096b2;
+    background-color: #63a0b4;
 }
 
 .infoCustomer{
-
-    border: 3px solid #00b5d1;
     border-radius: 5px ;
-    background-color: #0096b2;
+    background-color: #949696;
 }
 
 
@@ -400,8 +513,6 @@ select{
 .rowFormQuote2{
     margin-bottom: 5px;
     padding-bottom: 7px;
-
-    /*border: 3px solid #00b5d1;*/
     background-color: #00b5d1;
     border-radius: 5px;
 }
@@ -409,21 +520,16 @@ select{
 .products{
     padding-bottom: 5px;
 }
-/*
-.productRow{
-    margin-bottom: 2px;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    border: 3px solid #00b5d1;
-    background-color: rgba(0, 0, 0, 0.07);
-    border-radius: 5px;
-}*/
 
 .productRow{
-    border-bottom:2px solid #00b5d1;
     padding: 3px 0px;
-    background-color: rgba(0, 0, 0, 0.11);
 
+}
+.productAll{
+    padding: 5px;
+}
+.oneProduct{
+    border-bottom:1px solid #5e5e5e;
 }
 .add_product_link{
     margin-top: 10px;
@@ -461,7 +567,7 @@ select{
     border-radius: 5px ;
     margin-top: 2px;
     color: whitesmoke;
-    transition: all 0.4s;
+    transition: all 0.3s;
 }
 .resultQuote:hover{
     border: 3px solid #00b5d1;
@@ -507,12 +613,43 @@ select{
     margin-top: 4px;
 }
 
+.listInvoice  tr th{
+    padding: 6px 3px;
+}
+.listInvoice  tr td{
+    padding: 6px 3px;
+}
+.listQuote  tr th{
+    padding: 6px 3px;
+}
+.listQuote  tr td{
+    padding: 6px 3px;
+}
+.selectOption{
+   /* background-color: rgba(0, 181, 209, 0.22);*/
+    border-radius:3px;
+    padding: 7px 15px;
+    transition: all 0.3s;
+}
+.selectOption:hover{
+  /*  background-color: rgba(0, 140, 162, 0.37);*/
+    cursor: pointer;
+}
+.cogOption{
+    font-size: 22px;
+    transition: all 0.3s;
+}
+.cogOption:hover{
+    color: #6eeeff;
+
+}
+
 /*---------------------------------------------------------------------*/
 /*----------LOGIN                                -------------------*/
 /*---------------------------------------------------------------------*/
 .fill{
     min-height: 100%;
-    height: 100%;
+    height: 99%;
 }
 
 /*---------------------------------------------------------------------*/
@@ -618,8 +755,8 @@ md-perspective,
 
 .brand{
     padding-right: 10px;
-    background-image: url("../images/miniLogo.png");
-    width: 91px;
+    background-image: url("../images/logoQuotinvoSEUL.png");
+    width: 65px;
     height: 65px;
 
 }
@@ -660,7 +797,7 @@ nav ul li{
     list-style: none;
     border-bottom: 1px solid #00b5d1;
     padding: 0px;
-    transition: all 0.4s;
+    transition: all 0.3s;
 }
 nav ul li:hover{
     background-color: #535859;
@@ -686,13 +823,15 @@ nav ul li a span{
 .main-content{
     margin-left: 200px;
     padding-top: 70px;
-    min-height: 100vh;
+    padding-right: 0px;
+    padding-left: 0px;
+
 }
 
 .main-container{
-    height: 100%;
-
+ height: 100%;
 }
+
 .iconBar{
     margin-top: 10px;
     margin-right: 10px;
@@ -711,7 +850,7 @@ nav ul li a span{
 
 
 
-@media screen and (max-width: 1000px) and (min-width: 500px) {
+@media screen and (max-width: 1000px) and (min-width: 639px) {
     .container-nav{
         width: 80px;
         transition: all 0.5s;
@@ -725,9 +864,29 @@ nav ul li a span{
     .main-content{
         margin-left: 80px;
     }
+    /*---------------------------------------------------------------------*/
+    /*----------Customer                                -------------------*/
+    /*---------------------------------------------------------------------*/
+
+    .table thead{
+        display: none;
+    }
+
+    .table tbody .mail{
+        display: none;
+    }
+    .table tbody .tel{
+        display: none;
+    }
+    .headCustomer{
+        display: none;
+    }
+
+
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 639px) {
+
     .header{
         background-color: #171b1c;
     }
@@ -758,4 +917,41 @@ nav ul li a span{
         display: block;
     }
 
+    /*---------------------------------------------------------------------*/
+    /*----------Customer                                -------------------*/
+    /*---------------------------------------------------------------------*/
+
+    .table thead{
+        display: none;
+    }
+
+    .table tbody .mail{
+        display: none;
+    }
+    .table tbody .tel{
+        display: none;
+    }
+    .headCustomer{
+        display: none;
+    }
+    .containerInfoCustomer{
+        padding: 0px;
+    }
+    .containerAll{
+        padding-right: 3px;
+        padding-left: 3px;
+    }
+    .rowCustemerList{
+        margin: 0px;
+    }
+    .listCustomer{
+        padding: 0px;
+    }
+    .infoCustomer{
+        padding: 0px;
+        margin-left: 3px;
+    }
+    .infoCustomer .col-sm{
+        padding: 0px;
+    }
 }

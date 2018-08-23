@@ -9,7 +9,7 @@
 
         <div class="row justify-content-center" style="margin-bottom: 30px">
             <div class="col-md-8 text-center">
-                <h1>Enregistrement d'un nouveau clients</h1>
+                <h1>Enregistrement d'un nouveau client</h1>
 
                 {% if errorName != null %}
                     <div class=" alert alert-danger">{{ errorName }}</div>
@@ -213,16 +213,15 @@
             </div>
         </div>
 
-
-
-
-
         {{ form_end(form) }}
     </div>
     
-    {#permet l'ajout dynamique des formulaires "phone" dans la vue#}
-    <script src="{{ asset('js/customer/form.js') }}"></script>
+
 
 {% endblock %}
 
+{% block script %}
+    {#permet l'ajout dynamique des formulaires "phone" dans la vue#}
+    <script src="{{ asset('js/customer/form.js') }}"></script>
+{% endblock %}
 

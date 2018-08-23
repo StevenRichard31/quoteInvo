@@ -148,11 +148,11 @@
                             </div>
                         </div>
 
-                        {% for product in form.products %}
-                            {% include '@App/quote/template/formProduct.html.twig'%}
-                        {% else %}
-                            {% do form.products.setRendered %}
-                        {% endfor %}
+                            {% for product in form.products %}
+                                {% include '@App/quote/template/formProduct.html.twig'%}
+                            {% else %}
+                                {% do form.products.setRendered %}
+                            {% endfor %}
 
                         <div class="row justify-content-between add_product_row"  >
                             <div class="add_product_link col-lg-3  btn-warning" >Ajouter un produit +</div>
@@ -175,6 +175,9 @@
     </div>
 
 
-    <script src="{{ asset('js/invoiceQuote/form2.js') }}"></script>
 
+
+{% endblock %}
+{% block script %}
+    <script src="{{ asset('js/invoiceQuote/form2.js') }}"></script>
 {% endblock %}

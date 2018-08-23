@@ -28,11 +28,56 @@
 
             <div class="col-lg-4 col-md-4"  >
                 <div class="row justify-content-end" style=" margin-right: 10px">
-                    <a class=" btnValidate " href={{ path("invoice.form") }}><bold>Nouvelle facture +</bold></a>
+                    <a class=" btnValidate " href={{ path("invoice.form") }}>
+                        <i class="fas fa-plus"></i>
+                        <bold>Nouvelle facture</bold>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="row justify-content-center">
+            <div class="listInvoice text-center col-lg-8 col-md-5 col-sm-8 col-5" >
+                <table class="table table-striped ">
+                    <thead>
+                        <tr>
+                            <th scope="col">N°facture:</th>
+                            <th scope="col">Nom du client:</th>
+                            <th scope="col">Nom du dossier:</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {%  if results is not null %}
+                        {% for invoice in results%}
+                            <tr class="col-lg col-md" >
+                                <th scope="row" ><span>{{ invoice.number_invoice }}</span></th>
+                                <td class="name">
+                                    <span>{{ invoice.name }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ invoice.document_name }}</span>
+                                </td>
+                                <td>
+                                    <a id="btnGroupDrop1" class="selectOption "  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-cog cogOption"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                        <a class=" dropdown-item text-center colorEdit" href="{{ path("invoice.form", {id: invoice.invoiceID}) }}" style="margin:4px 10px 0px 0px">Modifier</a>
+                                        <a class=" dropdown-item text-center colorWarning" href="{{ path("invoice.pdf", {id: invoice.invoiceID}) }}" target="_blank" style="margin:4px 10px 0px 0px">PDF</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{#
+
+        </div>
             <div class="resultInvoiceHead col-lg-10 col-md-10">
                 <div class="row">
                     <div class="col-lg col-md">
@@ -66,6 +111,6 @@
             {% endfor %}
         {% endif %}
     </div>
-
+#}
 
 {% endblock %}

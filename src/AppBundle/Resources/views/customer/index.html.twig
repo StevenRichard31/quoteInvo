@@ -12,53 +12,53 @@
             </div>
             <div class="col-md-4" >
                 <div class="row justify-content-end" style=" margin-right: 10px">
-                    <a class="btnNewCustomer btn-info" href={{ path("customer.form") }}>Nouveau client +</a>
+                    <a class="btnNewCustomer btn-info" href={{ path("customer.form") }}>
+                        <i class="fas fa-plus"></i>
+                        <bold>Nouveau client</bold>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
-   {#{{ dump(customers) }}#}
     <div class="containerInfoCustomer container-fluid">
-        <div class="rowCustemerList row">
-            <div class="listCustomer col-sm">
-                <div class="headCustomer row ">
-                    <div class="col-sm-3">
-                      <span>Nom du client:</span>
-                    </div>
-                    <div class="col-sm-5">
-                       <span>Mail:</span>
-                    </div>
-                    <div class="col-sm-4">
-                       <span>Téléphone:</span>
-                    </div>
-                </div>
-
-                {%  if customers != null %}
-                {% for customer in customers%}
-                    <div id ="{{customer.id }}" class="customer row btn-info" onclick="displayCustomerInfo({{customer.id }})">
-                        <div class="col-sm-3">
-                           <span>{{ customer.name }}</span>
-                        </div>
-                        <div class="col-sm-5">
-                            {%  if customer.mail == null %}
-                             <span>Vous n'avez pas mis de mail</span>
-                            {% else %}
-                               <span>{{ customer.mail }}</span>
-                            {% endif %}
-                        </div>
-                        <div class="col-sm-4">
-                            <span>{{ customer.phones[0].getType }}: {{ customer.phones[0].getNumber }}</span>
-                        </div>
-                    </div>
-
-                {% endfor %}
-                {% endif %}
+        <div class="rowCustemerList row justify-content-center">
+            <div class="listCustomer col-lg-10 col-md-5 col-sm-8 col-5" >
+                <table class="table table-striped ">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Mail</th>
+                        <th scope="col">Téléphone</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%  if customers != null %}
+                    {% for customer in customers%}
+                        <tr id ="{{customer.id }}" class="trSelect" onclick="displayCustomerInfo({{customer.id }})">
+                            <th scope="row" class="id">{{customer.id }}</th>
+                            <td class="name">
+                                <span>{{ customer.name }}</span>
+                            </td>
+                            <td class="mail">
+                                {%  if customer.mail == null %}
+                                    <span>Vous n'avez pas mis de mail</span>
+                                {% else %}
+                                    <span>{{ customer.mail }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="tel"><span>{{ customer.phones[0].getNumber }}</span></td>
+                        </tr>
+                    {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
             </div>
 
             {%  if customers != null %}
             {% for customer in customers%}
-            <div id="info{{customer.id }}" class="infoCustomer col-sm " style="display: none" >
+            <div id="info{{customer.id }}" class="infoCustomer col-lg-4 col-md col-7 " style="display: none" >
                 <div class="col-sm">
                     <div class="btnCustomer row justify-content-center">
                         <div class="col-md-6 ">
@@ -77,15 +77,35 @@
                             <h5>Nom du client:</h5>
                             <span>{{customer.name}}</span><br>
                             <br>
+
                             <h5>Mail:</h5>
                             <span>{% if customer.mail == null %} ...Non renseigné... {% else %} {{customer.mail }} {% endif %} </span><br>
                             <br>
+
                             <h5>Adresse:</h5>
-                            <span> <bold>Rue:</bold>  {{customer.address.getStreet }}</span><br>
-                            <span><bold>Ville:</bold> {{customer.address.getTown }}</span><br>
-                            <span><bold>Code Postal:</bold> {{customer.address.getPostalCode }}</span><br>
-                            <span><bold>Pays:</bold> {% if customer.address.getCountry == null %} ... {% else %} {{customer.address.getCountry }} {% endif %} </span><br>
-                            <span><bold>Bâtiment:</bold>{% if customer.address.getBuilding == null %} ... {% else %} {{customer.address.getBuilding }} {% endif %} </span><br>
+
+                            <span>
+                                {{customer.address.getStreet }}
+                            </span>
+                            <br>
+                            <span>
+                                {{customer.address.getTown }}
+                            </span>
+                            <br>
+                            <span>
+                                {{customer.address.getPostalCode }}
+                            </span>
+                            <br>
+                            <span>
+                                <span class="fontArtBold">Bâtiment:</span><br>
+                                {% if customer.address.getBuilding == null %} ... {% else %} {{customer.address.getBuilding }} {% endif %}
+                            </span><br>
+                            <span>
+                                <span class="fontArtBold">Pays:</span><br>
+                                {% if customer.address.getCountry == null %} ... {% else %} {{customer.address.getCountry }} {% endif %}
+                            </span><br>
+
+
                             <br>
                             <h5>Téléphone(s):</h5>
                             {%  if customer.phones == null %}
@@ -124,9 +144,12 @@
 
 
 
-    <script src="{{ asset('js/customer/index.js') }}"></script>
+
 
 
 
 {% endblock %}
 
+{% block script %}
+    <script src="{{ asset('js/customer/index.js') }}"></script>
+{% endblock %}

@@ -35,11 +35,22 @@
     {% endfor %}
 {% endif %}
 
-<div class="container-fluid fill" style=" border: 2px solid green">
-    <div class="row align-items-center" style=" height: 100%;border: 2px solid red">
-        <div class="col align-self-center" style="border: 2px solid black">
+<div class="container-fluid fill" style=" background-color: rgba(71,73,83,0.41)">
+    <div class="row align-items-start" style=" height: 50%">
+        <div class="col align-self-center text-center" >
+            <img src="{{ asset("images/logoQIMoyenSmall.png") }}" alt="logo"><br>
+            <img src="{{ asset("images/Quotinvo.png") }}" alt="logoText">
+        </div>
+    </div>
+    <div class="row align-items-center" style=" height: 30%">
+        <div class="col align-self-center" >
             {% block fos_user_content %}
             {% endblock fos_user_content %}
+        </div>
+    </div>
+    <div class="row align-items-start" style=" height: 20%">
+        <div class="col align-self-center" >
+
         </div>
     </div>
 </div>

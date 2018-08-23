@@ -11,7 +11,9 @@
 
     <div class="form-group">
         <div class="col">
-            <label for="username">{{ 'security.login.username'|trans }}</label>
+            <label for="username"  >
+                <span >{{ 'security.login.username'|trans }}</span>
+            </label>
         </div>
         <div class="col">
             <input type="text" id="username" name="_username" value="{{ last_username }}" required="required"/>
@@ -20,7 +22,9 @@
 
     <div class="form-group">
         <div class="col">
-            <label for="password">{{ 'security.login.password'|trans }}</label>
+            <label for="password" >
+                <span>{{ 'security.login.password'|trans }}</span>
+            </label>
         </div>
         <div class="col">
             <input type="password" id="password" name="_password" required="required"/>
@@ -30,5 +34,5 @@
 
     <br>
 
-    <input type="submit" id="_submit" name="_submit"  value="{{ 'security.login.submit'|trans }}" class="btn  btnLogin"/>
+    <input type="submit" id="_submit" name="_submit"  value="{{ 'security.login.submit'|trans }}" class="btn btnEditer" style="padding: 0px;width: 100px;height: 30px"/>
 </form>

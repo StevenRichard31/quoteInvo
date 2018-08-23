@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Manager\InvoiceManager;
+use AppBundle\Manager\QuoteManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +17,10 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('@App/index.html.twig');
+        $quotes = $this->get(QuoteManager::class)->findQuotesWaiting();
+        $invoices = $this->get(InvoiceManager::class)->findInvoicesNotPaid();
+
+        return $this->render('@App/index.html.twig', [ "quotes" => $quotes,"invoices" => $invoices]);
     }
 
 

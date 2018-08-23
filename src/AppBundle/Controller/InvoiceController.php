@@ -18,7 +18,7 @@ use AppBundle\Manager\QuoteManager;
 use AppBundle\Manager\SearchManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -202,6 +202,19 @@ class InvoiceController extends Controller
         $html2pdf = $this->get('utils.html2Pdf');
         $html2pdf->create('P','A4', 'fr', true, 'UTF-8', array(8,10,8,10));
         return $html2pdf->generatePdf($template, "facture");
+    }
+
+    /**
+     * @param null $id
+     * @Route("paid/{id}", name="invoice.paid")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function invoicePaid($id = null){
+        if($id !== null){
+            $this->get(InvoiceManager::class)->invoicePaid($id);
+        }
+        return $this->redirectToRoute("homepage");
+
     }
 
 

@@ -46,6 +46,9 @@ class InvoiceManager
     public function getInvoiceByLimit(){
         return $this->repository->findAllInvoiceByLimit();
     }
+    public function findInvoicesNotPaid(){
+        return $this->repository->findInvoicesNotPaid();
+    }
 
     public function create(){
         $this->isNewInvoice = true;
@@ -58,6 +61,10 @@ class InvoiceManager
 
     public function getAllNumberInvoice(){
         return $this->repository->findAllNumberInvoice();
+    }
+
+    public function invoicePaid($id){
+        $this->repository->invoicePaid($id);
     }
 
     public function setNumberInvoice($invoice){

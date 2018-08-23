@@ -82,5 +82,20 @@ class QuoteRepository extends EntityRepository
         return $stmt->fetchAll();
     }
 
+    //récupération des devis qui n'ont pas générés de factures et sont encore valide
+    public function findQuotesWaiting(){
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT q,c FROM AppBundle:Quote q
+                      inner join q.customer c
+                      where :now <= q.validationDeadline
+                      and q.invoice is null
+                      order by q.validationDeadline 
+                      '
+            )
+            ->setParameter('now',new \DateTime('now'))
+            ->getResult();
+    }
+
 
 }

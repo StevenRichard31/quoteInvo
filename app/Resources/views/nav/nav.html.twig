@@ -3,8 +3,8 @@
         <ul>
             <li class="navLinkDisconnect ">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <span class="ConnectionName">{{ app.user.username }} : </span><br>
-                    <a class="nav-link fontArt" href="{{ path('fos_user_security_logout') }}">
+                    <span class="ConnectionName fontArt">{{ app.user.username }} : </span><br>
+                    <a class="nav-link fontArtBold" href="{{ path('fos_user_security_logout') }}">
                         {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                     </a>
                 {% endif %}
@@ -13,25 +13,25 @@
             <li>
                 <a href="{{ path("customer.index") }}">
                     <span><i class="far fa-address-card "></i></span>
-                    <span class="fontArt">CLIENTS</span>
+                    <span class="fontArtBold">CLIENTS</span>
                 </a>
             </li>
             <li>
                 <a href="{{ path("quote.index") }}">
                     <span><i class="far fa-file-alt "></i></span>
-                    <span class="fontArt">DEVIS</span>
+                    <span class="fontArtBold">DEVIS</span>
                 </a>
             </li>
             <li>
                 <a href="{{ path("invoice.index") }}">
                     <span><i class="fa fa-file-invoice-dollar "></i></span>
-                    <span class="fontArt">FACTURES</span>
+                    <span class="fontArtBold">FACTURES</span>
                 </a>
             </li>
             <li>
                 <a href="{{ path("setting.index") }}">
                     <span><i class="fa fa-ellipsis-v "></i></span>
-                    <span class="fontArt">PARAMÊTRES</span>
+                    <span class="fontArtBold">PARAMÊTRES</span>
                 </a>
             </li>
             {% endif %}

@@ -73,11 +73,9 @@ class QuoteManager
         if( $this->isNewQuote()){
             //si il existe des numeros de devis
             if( $this->listQuotesNumbers != [] || $this->listQuotesNumbers != null){
-                //on verifie le numeros du devis créer si il existe déjà en BDD
-                for( $i = 0 ; $i < count($this->listQuotesNumbers[0]); $i++ ){
-                    if($this->listQuotesNumbers[$i]['number_quote'] == $quote->getNumberQuote()){
-                        $this->error = 'Le numéro du devis existe déjà';
-                    }
+                //on verifie le numeros du devis créé si il existe déjà en BDD
+                if(in_array($quote->getNumberQuote(),$this->listQuotesNumbers)){
+                    $this->error = 'Le numéro du devis existe déjà';
                 }
             }
             //si le numero du devis insérer est plus petit que le numero proposer par le "generatorNumberQuote"
@@ -97,10 +95,7 @@ class QuoteManager
             $this->error = 'Ajouter au moins un produit';
         }
 
-        if($this->error != null){
-            throw new Exception($this->error);
-        }
-        //return $this->error;
+        return $this->error;
     }
 
     public function updateQuoteProducts($quote){
@@ -114,6 +109,10 @@ class QuoteManager
                 $em->flush();
             }
         }
+    }
+
+    public function findQuotesWaiting(){
+        return $this->repository->findQuotesWaiting();
     }
 
     /**

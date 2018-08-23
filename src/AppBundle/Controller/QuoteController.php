@@ -8,17 +8,13 @@
 
 namespace AppBundle\Controller;
 
-//use AppBundle\Entity\Customer;
-use AppBundle\Entity\GeneratorNumberQuote;
+
 use AppBundle\Entity\Quote;
-use AppBundle\Entity\Search;
 use AppBundle\Form\RegistrationQuoteType;
 use AppBundle\Form\SearchType;
 use AppBundle\Manager\GeneratorNumberQuoteManager;
 use AppBundle\Manager\QuoteManager;
 use AppBundle\Manager\SearchManager;
-use Doctrine\Common\Collections\ArrayCollection;
-//use Spipu\Html2Pdf\Html2Pdf;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -106,19 +102,12 @@ class QuoteController extends Controller
 
         if($formQuote->isSubmitted() && $formQuote->isValid()) {
             //check les informations du devis
-            /*
+
             $error = $quoteManager->checks($quote);
             if( $error != null){
                 return $this->render('@App/quote/form.html.twig', ["form" => $formQuote->createView(), "error" => $error]);
             }
-            */
-            try{
-                $quoteManager->checks($quote);
-            }
-            catch(Exception $e){
-                $error = 'Exception : '.$e->getMessage();
-                return $this->render('@App/quote/form.html.twig', ["form" => $formQuote->createView(), "error" => $error]);
-            }
+
             //verifie si la collection de produit à changer
            $quoteManager->updateQuoteProducts($quote);
 

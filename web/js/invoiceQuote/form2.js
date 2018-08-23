@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
 
 
     /*----------------------------------------------------*/
-    /*------ADD    PHONE                        ----------*/
+    /*------ADD    PRODUCT                    ----------*/
     /*----------------------------------------------------*/
     // Get the ul that holds the collection of tags
     var collectionHolder = $('div.products');
@@ -18,7 +18,8 @@ jQuery(document).ready(function() {
 
     // count the current form inputs we have (e.g. 2), use that as the new
     // index when inserting a new item (e.g. 2)
-    collectionHolder.data('index', (collectionHolder.find(':input').length)/2);
+
+    collectionHolder.data('index', (collectionHolder.find('.productRow').length));
 
 
     $newLinkLi.on('click', function(e) {
@@ -33,6 +34,7 @@ jQuery(document).ready(function() {
 });
 
 function addProductForm(collectionHolder, $newLinkLi) {
+
     // get the new index
     var index = collectionHolder.data('index');
 
@@ -52,9 +54,10 @@ function addProductForm(collectionHolder, $newLinkLi) {
 
 
     // Display the form in the page in an li, before the "Add a tag" link li
-    var newFormLi = $('<div></div>').append(newForm);
+    var newFormLi = $('<div class="oneProduct"></div>').append(newForm);
 
     $('.add_product_row').before(newFormLi);
+    //$('.productAll').append(newFormLi);
 
     //applique select2 sur la class
     $('.tvaForm').select2();

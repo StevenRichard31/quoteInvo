@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Quote
 {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -122,6 +123,8 @@ class Quote
     private $totalIncludingTaxes;
 
 
+    private $color;
+    private $difference;
 
 
     /*----------------------------------------------------------------------------------------------------------------*/
@@ -490,4 +493,49 @@ class Quote
     {
         return $this->totalIncludingTaxes;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getColor()
+    {
+        $this->setDifference($this->getValidationDeadline()->diff(new \DateTime('now')));
+        $difference = $this->getDifference();
+
+        if($difference->d > 15){
+            $this->setColor("green");
+        }
+        elseif ($difference->d <= 15 and $difference->d > 7){
+            $this->setColor("orange");
+        }elseif($difference->d <= 7){
+            $this->setColor("red");
+        }
+
+        return $this->color;
+    }
+
+    /**
+     * @param mixed $color
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDifference()
+    {
+        return $this->difference;
+    }
+
+    /**
+     * @param mixed $difference
+     */
+    public function setDifference($difference)
+    {
+        $this->difference = $difference;
+    }
+
 }
