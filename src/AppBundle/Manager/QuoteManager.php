@@ -36,6 +36,8 @@ class QuoteManager
 
     private $error = null;
 
+    private $generatorManager;
+
     /**
      * QuoteManager constructor.
      * @param Doctrine $doctrine
@@ -49,6 +51,25 @@ class QuoteManager
     public function create(){
         $this->isNewQuote = true;
         return new Quote();
+    }
+
+    public function getQuoteWithNumber($quote){
+        //récupération la liste des numeros de devis existant
+        $this->getQuotesNumbers();
+        //récupération du dernier numéro de devis générer
+        $this->setLastNumberQuote($this->generatorManager->getLastNumberQuote());
+        // si c'est un nouveau devis
+        if($this->isNewQuote()){
+            $newNumberQuote = $this->generatorManager->generateNumberQuote();
+            $this->setNewNumberQuote($newNumberQuote);
+            $quote->setNumberQuote($newNumberQuote);
+        }
+        else{
+            $this->setInitialNumberQuote($quote->getNumberQuote());
+        }
+        // création d'une collection de produit existant
+        $this->setOriginalProducts($quote);
+        return $quote;
     }
 
     public function getQuotesByLimit(){
@@ -174,6 +195,16 @@ class QuoteManager
     public function setNewNumberQuote($newNumberQuote)
     {
         $this->newNumberQuote = $newNumberQuote;
+    }
+
+
+    /**
+     * @param mixed $generatorManager
+     */
+    public function setGeneratorManager($generatorManager)
+    {
+        $this->generatorManager = $generatorManager;
+        return $this;
     }
 
 }

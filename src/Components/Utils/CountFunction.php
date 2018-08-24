@@ -22,9 +22,9 @@ class CountFunction
 
     }
 
-    public function setTVA($document){
-        return $this->setAllTVA($document);
-
+    public function setLeftToPayAndTVA($document){
+        $document = $this->setAllTVA($document);
+        return $this->setLeftToPay($document);
     }
 
     public function setLeftToPay($document){

@@ -62,8 +62,8 @@ class QuoteController extends Controller
     public function formQuoteAction(Quote $quote = null,Request $request)
     {
         //MANAGER
-        $quoteManager = $this->get(QuoteManager::class);
         $generatorManager = $this->get(GeneratorNumberQuoteManager::class);
+        $quoteManager = $this->get(QuoteManager::class)->setGeneratorManager($generatorManager);
 
         if ($quote === null){
             //instanciation devis
@@ -76,33 +76,15 @@ class QuoteController extends Controller
             }
         }
 
-        //récupération la liste des numeros de devis existant
-        $quoteManager->getQuotesNumbers();
-        //récupération du dernier numéro de devis générer
-        $quoteManager->setLastNumberQuote($generatorManager->getLastNumberQuote());
-
-        // si c'est un nouveau devis
-        if($quoteManager->isNewQuote()){
-            $newNumberQuote = $generatorManager->generateNumberQuote();
-            $quoteManager->setNewNumberQuote($newNumberQuote);
-            $quote->setNumberQuote($newNumberQuote);
-        }
-        else{
-            $quoteManager->setInitialNumberQuote($quote->getNumberQuote());
-        }
-
-        // création d'une collection de produit existant
-        $quoteManager->setOriginalProducts($quote);
+        $quote = $quoteManager->getQuoteWithNumber($quote);
 
         //création du formulaire et création du lien avec l'objet
         $formQuote = $this->createForm(RegistrationQuoteType::class,$quote);
         //hydrate l'objet avec les valeurs entrées dans le formulaire par l'utilisateur
         $formQuote->handleRequest($request);
 
-
         if($formQuote->isSubmitted() && $formQuote->isValid()) {
             //check les informations du devis
-
             $error = $quoteManager->checks($quote);
             if( $error != null){
                 return $this->render('@App/quote/form.html.twig', ["form" => $formQuote->createView(), "error" => $error]);
@@ -145,8 +127,7 @@ class QuoteController extends Controller
 
         //calcule des TVA et ajout aux documents
         $function = $this->container->get('utils.countFunction');
-        $quote = $function->setTVA($quote);
-        $quote = $function->setLeftToPay($quote);
+        $quote = $function->setLeftToPayAndTVA($quote);
 
         $quote = array_merge($quote, ["documentType" => 'DEVIS']);
 

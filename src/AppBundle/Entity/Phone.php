@@ -37,7 +37,7 @@ class Phone
      * @Assert\Type("string")
      * @Assert\Length(max="15", maxMessage="Le numéro de téléphone est trop long.")
      * @Assert\NotNull(message="Donner un numéro de téléphone")
-     * @Assert\Regex(pattern="/^([-+,;. ]?[0-9]{1}){6,12}$/", message="Ceci n'est pas considérer comme un numéro de téléphone")
+     * @Assert\Regex(pattern="/^(0|\+33)[1-9]([-+,;. ]?[0-9]{2}){4}$/", message="Ceci n'est pas considérer comme un numéro de téléphone")
      */
     private $number;
 

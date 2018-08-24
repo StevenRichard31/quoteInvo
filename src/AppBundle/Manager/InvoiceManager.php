@@ -30,6 +30,8 @@ class InvoiceManager
 
     private $error = null;
 
+    private $quoteManager;
+
 
 
 
@@ -43,9 +45,32 @@ class InvoiceManager
         $this->repository = $this->doctrine->getRepository(Invoice::class);
     }
 
+    public function getNewInvoice($quote){
+        //nouvelle facture avec info devis
+        $invoice = $this->create();
+
+        //lien devis facture
+        $quote->setInvoice($invoice);
+
+        //on hydrate la facture avec les info devis
+        $this->hydrateInvoice($quote,$invoice);
+
+        return $invoice;
+    }
+
+
+    public function getInvoiceWithNumber($invoice){
+        //on génère et donne un numero de facture
+        $invoice = $this->setNumberInvoice($invoice);
+        // création d'une collection de produit existant
+        $this->setOriginalProducts($invoice);
+        return $invoice;
+    }
+
     public function getInvoiceByLimit(){
         return $this->repository->findAllInvoiceByLimit();
     }
+
     public function findInvoicesNotPaid(){
         return $this->repository->findInvoicesNotPaid();
     }
@@ -157,4 +182,15 @@ class InvoiceManager
     public function findInvoiceByID($id){
         return $this->repository->findInvoiceByID($id);
     }
+
+    /**
+     * @param mixed $quoteManager
+     */
+    public function setQuoteManager($quoteManager)
+    {
+        $this->quoteManager = $quoteManager;
+        return $this;
+    }
+
+
 }

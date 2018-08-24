@@ -113,6 +113,11 @@ class Customer
      */
     public function setName($name)
     {
+
+        $name = trim($name);
+        $name = str_replace(" ","",$name);
+        $name = strtolower($name);
+
         $this->name = $name;
 
         return $this;

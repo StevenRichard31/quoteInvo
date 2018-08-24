@@ -65,17 +65,12 @@ class InvoiceController extends Controller
         if($invoice === null ){
             //nouvelle facture sans devis
             $invoice = $invoiceManager->create();
-
         }
-        //on génère et donne un numero de facture
-        $invoice = $invoiceManager->setNumberInvoice($invoice);
 
-        // création d'une collection de produit existant
-        $invoiceManager->setOriginalProducts($invoice);
+        $invoice = $invoiceManager->getInvoiceWithNumber($invoice);
 
         //création du formulaire et création du lien avec l'objet
         $formInvoice = $this->createForm(RegistrationInvoiceType::class,$invoice);
-
         //hydrate l'objet avec les valeurs entrées dans le formulaire par l'utilisateur
         $formInvoice->handleRequest($request);
 
@@ -114,10 +109,9 @@ class InvoiceController extends Controller
     {
         //MANAGER
         $quoteManager = $this->get(QuoteManager::class);
-        $invoiceManager = $this->get(InvoiceManager::class);
+        $invoiceManager = $this->get(InvoiceManager::class)->setQuoteManager($quoteManager);
+
         if ($idQuote !== null){
-            //nouvelle facture avec info devis
-            $invoice = $invoiceManager->create();
 
             //recuperation du devis
             $quote = $quoteManager->find($idQuote);
@@ -127,11 +121,8 @@ class InvoiceController extends Controller
                 return $this->redirectToRoute("quote.index");
             }
 
-            //lien devis facture
-            $quote->setInvoice($invoice);
+            $invoice = $invoiceManager->getNewInvoice($quote);
 
-            //on hydrate la facture avec les info devis
-            $invoiceManager->hydrateInvoice($quote,$invoice);
         }
         else{
             return $this->redirectToRoute("quote.index");
@@ -184,7 +175,6 @@ class InvoiceController extends Controller
         }
         else{
             $invoice = $invoiceManager->findInvoiceByID($id);
-
             if($invoice === []){
                 return $this->redirectToRoute("invoice.index");
             }
@@ -192,11 +182,9 @@ class InvoiceController extends Controller
 
         //calcule des TVA et ajout aux documents
         $function = $this->container->get('utils.countFunction');
-        $invoice = $function->setTVA($invoice);
-        $invoice = $function->setLeftToPay($invoice);
+        $invoice = $function->setLeftToPayAndTVA($invoice);
 
         $invoice = array_merge($invoice, ["documentType" => 'FACTURE']);
-
         $template = $this->renderView('@App/pdf/pdf2.html.twig',["document" => $invoice]);
 
         $html2pdf = $this->get('utils.html2Pdf');

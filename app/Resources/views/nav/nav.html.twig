@@ -16,12 +16,14 @@
                     <span class="fontArtBold">CLIENTS</span>
                 </a>
             </li>
+            {% endif %}
             <li>
                 <a href="{{ path("quote.index") }}">
                     <span><i class="far fa-file-alt "></i></span>
                     <span class="fontArtBold">DEVIS</span>
                 </a>
             </li>
+            {% if is_granted("ROLE_ADMIN") %}
             <li>
                 <a href="{{ path("invoice.index") }}">
                     <span><i class="fa fa-file-invoice-dollar "></i></span>
