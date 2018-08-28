@@ -41,19 +41,7 @@ class CustomerRepository extends EntityRepository
         $stmt->execute(['customerName' => $customerName]);
         return $stmt->fetchAll();
     }
-    /*
-        public function findAllCustomer(){
 
-
-            $sql = "select  customer.name,customer.id,customer.mail,address.building,address.country,address.postal_code,address.street,address.town,phone.number,phone.type FROM customer
-                    inner join address on customer.address_id = address.id
-                    inner join phone on phone.customer_id = customer.id";
-
-            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
-            $stmt->execute();
-            return $stmt->fetchAll();
-        }
-        */
         public function findAllCustomer(){
 
             return $this->getEntityManager()

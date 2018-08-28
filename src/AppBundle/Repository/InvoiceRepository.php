@@ -96,4 +96,15 @@ class InvoiceRepository extends EntityRepository
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute(['id' => $id]);
     }
+
+    public function findInvoicesByYear($yearSelected){
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT i FROM AppBundle:Invoice i 
+                      where YEAR(i.creationDate) = :yearSelected
+                      order by i.creationDate'
+            )
+            ->setParameter('yearSelected',$yearSelected)
+            ->getResult();
+    }
 }

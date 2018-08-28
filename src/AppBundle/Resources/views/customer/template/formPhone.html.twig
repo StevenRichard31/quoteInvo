@@ -1,0 +1,30 @@
+<!--suppress ALL -->
+
+<div id="{{ phone.vars.id }}" class=" phoneRow col-12 animated fadeIn">
+    <div class="row justify-content-center">
+        {% if form_errors(phone.type) != null %}
+            <div class="col-auto alerte "><span>{{ form_errors(phone.type) }}</span></div>
+        {% endif %}
+        {% if form_errors(phone.number) != null %}
+            <div class="col-auto alerte "><span>{{ form_errors(phone.number) }}</span></div>
+        {% endif %}
+    </div>
+    <div  class="row" >
+        <div class="col-lg-auto">
+            {{ form_label(phone.type) }}
+        </div>
+        <div class="col">
+             {{ form_widget(phone.type, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="col-lg-auto">
+            {{ form_label(phone.number) }}
+        </div>
+        <div class="col">
+             {{ form_widget(phone.number, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class=" btnSupprimer text-center col-md-auto " onclick="deletePhone({{ phone.vars.id }})" >
+            <i class="far fa-trash-alt"></i>
+        </div>
+    </div>
+</div>
+

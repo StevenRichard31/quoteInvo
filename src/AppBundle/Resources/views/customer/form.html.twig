@@ -162,42 +162,17 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="row justify-content-center" >
-                    <div class="phones form-group col-sm-12" data-prototype="{{ form_widget(form.phones.vars.prototype)|e ('html_attr') }}">
+                    <div class="phones form-group col-sm-12" data-prototype="{% filter escape %}{% include '@App/customer/template/formPhone.html.twig' with {'phone': (form.phones.vars.prototype)|e ('html_attr')} %}{% endfilter %}">
                         {% if form_errors(form.phones) != null %}
                             <div class="col-sm-12 alert alert-danger ">{{ form_errors(form.phones) }}</div>
                         {% endif %}
-
+                        <div class="listPhones row justify-content-center">
                         {% for phone in form.phones %}
-                            <div id="{{ phone.vars.id }}" class="phoneRow row justify-content-center" >
-                                {#{{ form_row(phone) }}#}
-                                {% if form_errors(phone.type) != null %}
-                                    <div class="col-sm-12 alert alert-danger">{{ form_errors(phone.type) }}</div>
-                                {% endif %}
-                                <div class="col-sm-12 control-label">
-
-                                    {{ form_label(phone.type) }}
-                                </div>
-                                <div class="col-sm-12">
-
-                                    {{ form_widget(phone.type, {'attr': {'class': 'form-control'}}) }}
-                                </div>
-                                {% if form_errors(phone.number) != null %}
-                                    <div class="col-sm-12 alert alert-danger">{{ form_errors(phone.number) }}</div>
-                                {% endif %}
-                                <div class="col-sm-12 control-label">
-
-                                    {{ form_label(phone.number) }}
-                                </div>
-                                <div class="col-sm-12">
-
-                                    {{ form_widget(phone.number, {'attr': {'class': 'form-control'}}) }}
-                                </div>
-                                <div class=" btnSupprimer text-center col-md-8 align-self-center" onclick="deletePhone({{ phone.vars.id }})" style="margin-top: 10px">Supprimer ce numéro de téléphone</div>
-                            </div>
-
+                            {% include '@App/customer/template/formPhone.html.twig'%}
                         {% else %}
                             {% do form.phones.setRendered %}
                         {% endfor %}
+                        </div>
                     </div>
 
 

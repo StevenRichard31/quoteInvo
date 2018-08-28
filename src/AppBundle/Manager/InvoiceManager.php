@@ -9,6 +9,7 @@
 namespace AppBundle\Manager;
 
 use AppBundle\Entity\Invoice;
+use AppBundle\Entity\SearchCharts;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\RegistryInterface as Doctrine;
 
@@ -183,9 +184,12 @@ class InvoiceManager
         return $this->repository->findInvoiceByID($id);
     }
 
-    /**
-     * @param mixed $quoteManager
-     */
+    public function findInvoices(SearchCharts $searchCharts){
+        $date= $searchCharts->getDate();
+        $year = $date->format('Y');
+        return $this->repository->findInvoicesByYear($year);
+    }
+
     public function setQuoteManager($quoteManager)
     {
         $this->quoteManager = $quoteManager;

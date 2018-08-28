@@ -64,8 +64,8 @@ class GeneratorNumberQuoteManager
     }
 
     public function updateGeneratorNumberQuote($quote){
-        //si le numéro générer est différent du numéro de devis
-        if($this->lastNumberQuote != $quote->getNumberQuote()){
+        //si le dernier numéro des devis  est plus grand que le numéro de devis
+        if($this->lastNumberQuote < $quote->getNumberQuote()){
             //prend le numero du nouveau devis et le remplace par l'ancien
             $this->repository->updateLastNumberQuote($quote->getNumberQuote(),$this->lastNumberQuote);
         }

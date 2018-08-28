@@ -35,15 +35,19 @@
     {% endfor %}
 {% endif %}
 
-<div class="container-fluid fill" style=" background-color: rgba(71,73,83,0.41)">
-    <div class="row align-items-start" style=" height: 50%">
-        <div class="col align-self-center text-center" >
-            <img src="{{ asset("images/logoQIMoyenSmall.png") }}" alt="logo"><br>
-            <img src="{{ asset("images/Quotinvo.png") }}" alt="logoText">
+<div class="container-fluid fill" style=" background-color: white">
+    <div class="row align-items-start justify-content-center" style=" height: 50%">
+        <div class="col-auto align-self-center ">
+            <div class="row justify-content-center">
+                <div class="logoQI col-auto" ></div><br>
+            </div>
+            <div class="row">
+                <div class="logoText col-auto"></div>
+            </div>
         </div>
     </div>
-    <div class="row align-items-center" style=" height: 30%">
-        <div class="col align-self-center" >
+    <div class="row align-items-center justify-content-center" style=" height: 30%">
+        <div class="cardLogin col-lg-3 col-md-3 col-sm-5 col-6 align-self-center"  >
             {% block fos_user_content %}
             {% endblock fos_user_content %}
         </div>

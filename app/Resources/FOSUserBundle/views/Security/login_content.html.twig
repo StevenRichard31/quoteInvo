@@ -16,7 +16,7 @@
             </label>
         </div>
         <div class="col">
-            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required"/>
+            <input class="col-lg-10 col-md-10 col-sm-10 col-12" type="text" id="username" name="_username" value="{{ last_username }}" required="required"/>
         </div>
     </div>
 
@@ -27,12 +27,12 @@
             </label>
         </div>
         <div class="col">
-            <input type="password" id="password" name="_password" required="required"/>
+            <input class="col-lg-10 col-md-10 col-sm-10 col-12" type="password" id="password" name="_password" required="required"/>
         </div>
     </div>
 
 
     <br>
 
-    <input type="submit" id="_submit" name="_submit"  value="{{ 'security.login.submit'|trans }}" class="btn btnEditer" style="padding: 0px;width: 100px;height: 30px"/>
+    <input type="submit" id="_submit" name="_submit"  value="{{ 'security.login.submit'|trans }}" class="btn btnEditer col-auto" style="padding: 0px;width: 100px;height: 30px"/>
 </form>

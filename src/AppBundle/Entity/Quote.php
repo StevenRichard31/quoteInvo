@@ -503,12 +503,12 @@ class Quote
         $difference = $this->getDifference();
 
         if($difference->d > 15){
-            $this->setColor("green");
+            $this->setColor("greenTime");
         }
         elseif ($difference->d <= 15 and $difference->d > 7){
-            $this->setColor("orange");
+            $this->setColor("orangeTime");
         }elseif($difference->d <= 7){
-            $this->setColor("red");
+            $this->setColor("redTime");
         }
 
         return $this->color;

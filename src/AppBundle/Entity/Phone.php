@@ -49,10 +49,8 @@ class Phone
 
 
     public function __clone() {
-       // if ($this->id) {
-            $this->id = null;
-            $this->customer = null;
-        //}
+        $this->id = null;
+        $this->customer = null;
     }
 
     /**

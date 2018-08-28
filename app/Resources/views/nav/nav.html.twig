@@ -11,6 +11,18 @@
             </li>
             {% if is_granted("ROLE_ADMIN") %}
             <li>
+                <a href="{{ path("homepage") }}">
+                    <span><i class="fas fa-home "></i></span>
+                    <span class="fontArtBold">ACCUEIL</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path("charts.index") }}">
+                    <span><i class="fas fa-chart-pie "></i></span>
+                    <span class="fontArtBold">CHARTS</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{ path("customer.index") }}">
                     <span><i class="far fa-address-card "></i></span>
                     <span class="fontArtBold">CLIENTS</span>

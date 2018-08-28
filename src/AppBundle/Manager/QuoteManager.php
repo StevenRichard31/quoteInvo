@@ -8,10 +8,13 @@
 
 namespace AppBundle\Manager;
 
+use AppBundle\AppBundleEvents;
 use AppBundle\Entity\Quote;
+use AppBundle\Event\QuoteEvent;
+use Components\Utils\CountFunction;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\RegistryInterface as Doctrine;
-use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class QuoteManager
 {
@@ -38,19 +41,50 @@ class QuoteManager
 
     private $generatorManager;
 
+    private $utilsCountFunction;
+
+    private $dispatcher;
+
     /**
      * QuoteManager constructor.
      * @param Doctrine $doctrine
+     * @param EventDispatcherInterface $dispatcher
+     * @param CountFunction $utilsCountFunction
+     * @param GeneratorNumberQuoteManager $generatorManager
      */
-    public function __construct(Doctrine $doctrine)
+    public function __construct(CountFunction $utilsCountFunction, GeneratorNumberQuoteManager $generatorManager, Doctrine $doctrine,EventDispatcherInterface $dispatcher)
     {
         $this->doctrine = $doctrine;
+        $this->dispatcher = $dispatcher;
         $this->repository = $this->doctrine->getRepository(Quote::class);
+        $this->utilsCountFunction = $utilsCountFunction;
+        $this->generatorManager = $generatorManager;
     }
 
     public function create(){
         $this->isNewQuote = true;
         return new Quote();
+    }
+
+    public function addQuote($quote){
+        ///
+        //$quote = $event->getQuote();
+        //$quoteManager = $event->getQuoteManager();
+        $generatorManager = $this->generatorManager;
+
+        //verifie si la collection de produit à changer
+        $this->updateQuoteProducts($quote);
+        //calcule des montant et ajout aux documents
+        $this->utilsCountFunction->setAllCount($quote);
+
+        //ajoute du devis en BDD
+        $this->add($quote);
+        if($this->isNewQuote()){
+            $generatorManager->updateGeneratorNumberQuote($quote);
+        }
+
+        $event = new QuoteEvent($quote);
+        $this->dispatcher->dispatch(AppBundleEvents::ADD_QUOTE,$event);
     }
 
     public function getQuoteWithNumber($quote){
@@ -197,14 +231,5 @@ class QuoteManager
         $this->newNumberQuote = $newNumberQuote;
     }
 
-
-    /**
-     * @param mixed $generatorManager
-     */
-    public function setGeneratorManager($generatorManager)
-    {
-        $this->generatorManager = $generatorManager;
-        return $this;
-    }
 
 }

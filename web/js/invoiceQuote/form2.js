@@ -57,7 +57,6 @@ function addProductForm(collectionHolder, $newLinkLi) {
     var newFormLi = $('<div class="oneProduct"></div>').append(newForm);
 
     $('.add_product_row').before(newFormLi);
-    //$('.productAll').append(newFormLi);
 
     //applique select2 sur la class
     $('.tvaForm').select2();
@@ -65,6 +64,8 @@ function addProductForm(collectionHolder, $newLinkLi) {
 
 
 }
+
+
 
 /*----------------------------------------------------*/
 /*------DELETE PRODUCT                        ----------*/

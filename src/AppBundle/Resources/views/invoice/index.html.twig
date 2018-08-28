@@ -40,9 +40,9 @@
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th scope="col">N°facture:</th>
-                            <th scope="col">Nom du client:</th>
-                            <th scope="col">Nom du dossier:</th>
+                            <th scope="col"><span>N°facture:</span></th>
+                            <th scope="col"><span>Nom du client:</span></th>
+                            <th scope="col"><span>Nom du dossier:</span></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -62,8 +62,8 @@
                                         <i class="fas fa-cog cogOption"></i>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                        <a class=" dropdown-item text-center colorEdit" href="{{ path("invoice.form", {id: invoice.invoiceID}) }}" style="margin:4px 10px 0px 0px">Modifier</a>
-                                        <a class=" dropdown-item text-center colorWarning" href="{{ path("invoice.pdf", {id: invoice.invoiceID}) }}" target="_blank" style="margin:4px 10px 0px 0px">PDF</a>
+                                        <a class=" dropdown-item text-center colorEdit" href="{{ path("invoice.form", {id: invoice.invoiceID}) }}" style="margin:4px 10px 0px 0px;color: white">Modifier</a>
+                                        <a class=" dropdown-item text-center colorWarning" href="{{ path("invoice.pdf", {id: invoice.invoiceID}) }}" target="_blank" style="margin:4px 10px 0px 0px;color: white">PDF</a>
                                     </div>
                                 </td>
 
@@ -75,42 +75,6 @@
             </div>
         </div>
     </div>
-{#
 
-        </div>
-            <div class="resultInvoiceHead col-lg-10 col-md-10">
-                <div class="row">
-                    <div class="col-lg col-md">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4"><span>N°facture:</span> </div>
-                            <div class="col-lg-4 col-md-4"><span>Nom du client:</span> </div>
-                            <div class="col-lg-4 col-md-4"><span>Nom du dossier:</span> </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-1 col-md-2"></div>
-                </div>
-            </div>
-        </div>
-        {%  if results is not null %}
-            {% for invoice in results%}
-                <div class="rowSearchInvoice row justify-content-center  ">
-                    <div class="col-lg-10 col-md-10">
-                        <div class="row">
-                            <a class="resultInvoice col-lg col-md" href="{{ path("invoice.pdf", {id: invoice.invoiceID}) }}" target="_blank">
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-4">{{ invoice.number_invoice }}</div>
-                                    <div class="col-lg-4 col-md-4">{{ invoice.name }}</div>
-                                    <div class="col-lg-4 col-md-4">{{ invoice.document_name }}</div>
-                                </div>
-                            </a>
-                            <a class="col-lg-1 col-md-2 btnEditer" href="{{ path("invoice.form", {id: invoice.invoiceID}) }}">Modifier</a>
-                        </div>
-                    </div>
-
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
-#}
 
 {% endblock %}

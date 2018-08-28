@@ -23,7 +23,7 @@ class CheckPhoneValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
 
-        $limit = 5;
+        $limit = 3;
 
         //si "phones" n'a pas de numero de telephone
         if($value->count() == (null || 0)){

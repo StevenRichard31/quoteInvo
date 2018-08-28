@@ -1,6 +1,6 @@
 //select button addPhoneLink
 var $newLinkLi = $('.add_phone_link');
-
+var listPhones = $('.listPhones');
 
 
 jQuery(document).ready(function() {
@@ -12,7 +12,6 @@ jQuery(document).ready(function() {
     // Get the ul that holds the collection of tags
     var collectionHolder = $('div.phones');
 
-
     // count the current form inputs we have (e.g. 2), use that as the new
     // index when inserting a new item (e.g. 2)
     collectionHolder.data('index', (collectionHolder.find(':input').length)/2);
@@ -23,22 +22,21 @@ jQuery(document).ready(function() {
         e.preventDefault();
 
         // add a new tag form (see next code block)
-        addPhoneForm(collectionHolder, $newLinkLi);
+        addPhoneForm(collectionHolder);
     });
 
 
 });
 
-function addPhoneForm(collectionHolder, $newLinkLi) {
+function addPhoneForm(collectionHolder) {
     // get the new index
     var index = collectionHolder.data('index');
 
-    if ( index <= 4){
+    const LIMIT_PHONE = 3;
+    if ( index < LIMIT_PHONE){
         // Get the data-prototype explained earlier
         var prototype = collectionHolder.data('prototype');
-
         var newForm = prototype;
-
 
         // Replace '__name__' in the prototype's HTML to
         // instead be a number based on how many items we have
@@ -49,21 +47,16 @@ function addPhoneForm(collectionHolder, $newLinkLi) {
         // increase the index with one for the next item
         collectionHolder.data('index', newIndex);
 
-
         // Display the form in the page in an li, before the "Add a tag" link li
-        var newFormLi = $('<div class="customerPhoneForm col-md-5" ></div>').append(newForm);
-        $newLinkLi.before(newFormLi);
-        $('#appbundle_customer_phones_' + index + '_number').addClass('form-control');
-        $('#appbundle_customer_phones_' + index + '_type').addClass('form-control');
+        listPhones.append(newForm);
 
-        //add a delete link to the new form
-        addPhoneFormDeleteLink(newFormLi);
     }
 }
 
 /*----------------------------------------------------*/
 /*------DELETE PHONE                        ----------*/
 /*----------------------------------------------------*/
+/*
 function addPhoneFormDeleteLink(newFormLi){
 
 
@@ -78,13 +71,15 @@ function addPhoneFormDeleteLink(newFormLi){
         // remove the li for the tag form
         newFormLi.remove();
     });
-}
+}*/
 
 function deletePhone(id){
     $(id).remove();
 }
 
-
+/*----------------------------------------------------*/
+/*------AUTOCOMPLETE                        ----------*/
+/*----------------------------------------------------*/
 
 //autocomplete for postal code and fill field-town
 $('#appbundle_customer_address_postalCode').on('keyup', function() {

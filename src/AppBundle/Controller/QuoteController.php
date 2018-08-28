@@ -62,20 +62,20 @@ class QuoteController extends Controller
     public function formQuoteAction(Quote $quote = null,Request $request)
     {
         //MANAGER
-        $generatorManager = $this->get(GeneratorNumberQuoteManager::class);
-        $quoteManager = $this->get(QuoteManager::class)->setGeneratorManager($generatorManager);
+        //$generatorManager = $this->get(GeneratorNumberQuoteManager::class);
+        $quoteManager = $this->get(QuoteManager::class);
 
-        if ($quote === null){
+        if ($quote === null) {
             //instanciation devis
             $quote = $quoteManager->create();
         }
-        else{
+        else {
             //si ce n'est pas un admin
-            if( ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN') === false)){
+            if (!$this->isGranted('edit', $quote)) {
+                $this->addFlash('error', 'Vous n\'avez pas le droit de modifier ce devis !');
                 return $this->redirectToRoute("quote.index");
             }
         }
-
         $quote = $quoteManager->getQuoteWithNumber($quote);
 
         //création du formulaire et création du lien avec l'objet
@@ -90,23 +90,14 @@ class QuoteController extends Controller
                 return $this->render('@App/quote/form.html.twig', ["form" => $formQuote->createView(), "error" => $error]);
             }
 
-            //verifie si la collection de produit à changer
-           $quoteManager->updateQuoteProducts($quote);
-
-            //calcule des montant et ajout aux documents
-            $function = $this->container->get('utils.countFunction');
-            $function->setAllCount($quote);
-
-            //ajoute du devis en BDD
-            $quoteManager->add($quote);
-            //update le numero du devis dans le generator en BDD
-            $generatorManager->updateGeneratorNumberQuote($quote);
+            $quoteManager->addQuote($quote);
 
             //retour sur la page index de "Quote"
             return $this->redirectToRoute("quote.index");
         }
 
         return $this->render('@App/quote/form.html.twig', ["form" => $formQuote->createView(), "error" =>  null]);
+
     }
 
     /**

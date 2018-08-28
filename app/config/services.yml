@@ -37,6 +37,7 @@ services:
     AppBundle\Controller\FOSUserBundle\RegistrationController:
         arguments:
             $formFactory: '@fos_user.registration.form.factory'
+
     #MANAGER
     AppBundle\Manager\CustomerManager:
         public: true
@@ -47,14 +48,17 @@ services:
     AppBundle\Manager\TvaManager:
         public: true
     AppBundle\Manager\QuoteManager:
-            public: true
+        arguments:
+            - '@utils.countFunction'
+            - '@AppBundle\Manager\GeneratorNumberQuoteManager'
+        public: true
     AppBundle\Manager\GeneratorNumberQuoteManager:
-                public: true
+        public: true
     AppBundle\Manager\InvoiceManager:
-                public: true
+        public: true
     AppBundle\Manager\SearchManager:
-            arguments: ["@doctrine"]
-            public: true
+        arguments: ["@doctrine"]
+        public: true
 
     #UTILS
     utils.countFunction:
@@ -75,8 +79,24 @@ services:
         class: Twig_Extensions_Extension_Text
         tags:
             - { name: twig.extension }
+    #VOTER#
+    app.security.quote_voter:
+        class: AppBundle\Security\QuoteVoter
+        tags:
+            - { name: security.voter}
 
+    #Subscriber#
+    AppBundle\EventListener\QuoteEventSubscriber:
+        arguments: ['@utils.countFunction']
+        public: true
 
+    #Exception#
+    app.listener.redirect_404_to_homepage:
+        class: AppBundle\EventListener\Redirect404ToHomepageListener
+        arguments:
+            - "@router"
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
 
 
 

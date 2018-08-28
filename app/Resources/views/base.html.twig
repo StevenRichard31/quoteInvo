@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="{{ asset('css/animated.css')  }}"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous"/>
         <link rel="stylesheet" href="{{ asset('css/style.css')  }}"/>
+
     </head>
     <body>
 
@@ -38,16 +39,12 @@
         <div class=" row main-container">
 
             <div class="container-nav  " >
-
                 {% include "nav/nav.html.twig" %}
-
             </div>
 
             <div class="main-content col-lg col-md col-sm">
-
                 {% block body %}
                 {% endblock %}
-
             </div>
         </div>
     </div>
@@ -59,16 +56,15 @@
 
 
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <script src="{{ asset('vendor/select2/dist/js/select2.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     {% block script %}
     {% endblock %}
 
     {#script pour display bar-nav en mode phone#}
     <script src="{{ asset('js/base/nav.js') }}"></script>
-
-
 
     </body>
 

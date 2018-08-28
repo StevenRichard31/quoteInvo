@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <canvas id="lineChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    {{ form_start(form) }}
+
+
+    {{ form_widget(form.date.date.year) }}
+    {{ form_widget(form.date.date.day, {'attr': {'style': 'display:none'}}) }}
+    {{ form_widget(form.date.date.month, {'attr': {'style': 'display:none'}}) }}
+    {{ form_widget(form.date.time.hour, {'attr': {'style': 'display:none'}}) }}
+    {{ form_widget(form.date.time.minute , {'attr': {'style': 'display:none'}})  }}
+
+
+    {% do form.date.date.setRendered %}
+
+
+    {{ form_end(form) }}
+
+
+{% endblock %}
+
+{% block script %}
+
+
+
+        <script>
+            $('#appbundle_searchCharts_date_date_year').select2();
+            //line
+            var ctxL = document.getElementById("lineChart").getContext('2d');
+            var myLineChart = new Chart(ctxL, {
+                type: 'line',
+                data: {
+                    labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+                    datasets: [{
+                        label: "My First dataset",
+                        backgroundColor: '#94ecff',
+                        borderColor: '#5769ff',
+                        pointBorderColor:'#5769ff',
+                        data: [
+                            {% for key, value in moisList %}
+                            {{ value }},
+                            {% endfor %}
+                        ],
+                    }]
+                },
+                options: {
+                    responsive: true,
+
+                }
+            });
+    </script>
+
+
+{% endblock %}

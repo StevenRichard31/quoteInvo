@@ -27,17 +27,17 @@
                 <table class="table table-striped ">
                     <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Mail</th>
-                        <th scope="col">Téléphone</th>
+                        <th scope="col"><span>ID</span></th>
+                        <th scope="col"><span>Nom</span></th>
+                        <th scope="col"><span>Mail</span></th>
+                        <th scope="col"><span>Téléphone</span></th>
                     </tr>
                     </thead>
                     <tbody>
                     {%  if customers != null %}
                     {% for customer in customers%}
                         <tr id ="{{customer.id }}" class="trSelect" onclick="displayCustomerInfo({{customer.id }})">
-                            <th scope="row" class="id">{{customer.id }}</th>
+                            <th scope="row" class="id"><span>{{customer.id }}</span></th>
                             <td class="name">
                                 <span>{{ customer.name }}</span>
                             </td>
