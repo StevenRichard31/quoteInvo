@@ -26,22 +26,17 @@ class ChartsController extends Controller
 {
     /**
      * @Route("/", name="charts.index")
-     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexCustomerAction(Request $request)
+    public function indexCustomerAction( Request $request)
     {
 
         $searchCharts = new SearchCharts();
+
         $allInvoices = $this->get(InvoiceManager::class)->findInvoices($searchCharts);
 
-
-        $moisList = [1=>0,2=>0,3=>0,4=>0,5=>0,6=>0,7=>0,8=>0,9=>0,10=>0,11=>0,12=>0];
-
-        foreach ($allInvoices as $invoice){
-           $mois = intval($invoice->getCreationDate()->format('m'));
-           $moisList[$mois] = $moisList[$mois]+1;
-        }
-
+        $moisList = $this->getNumberInvoice($allInvoices);
 
         $form = $this->createForm(SearchChartsType::class,$searchCharts);
         $form->handleRequest($request);
@@ -50,20 +45,30 @@ class ChartsController extends Controller
 
             $allInvoices = $this->get(InvoiceManager::class)->findInvoices($searchCharts);
 
-
-            $moisList = [1=>0,2=>0,3=>0,4=>0,5=>0,6=>0,7=>0,8=>0,9=>0,10=>0,11=>0,12=>0];
-            foreach ($allInvoices as $invoice){
-                $mois = intval($invoice->getCreationDate()->format('m'));
-                $moisList[$mois] = $moisList[$mois]+1;
-            }
+            $moisList = $this->getNumberInvoice($allInvoices);
 
             $form = $this->createForm(SearchChartsType::class,$searchCharts);
             $form->handleRequest($request);
             return $this->render('@App/charts/index.html.twig',["form" => $form->createView(), "allInvoices" => $allInvoices,"moisList" => $moisList]);
-            /*  return $this->redirectToRoute("charts.index");*/
 
         }
-        //dump($invoices); die();
+
         return $this->render('@App/charts/index.html.twig',["form" => $form->createView(), "allInvoices" => $allInvoices,"moisList" => $moisList]);
+    }
+
+    private function getNumberInvoice($allInvoices){
+        $moisList = [1=>0,2=>0,3=>0,4=>0,5=>0,6=>0,7=>0,8=>0,9=>0,10=>0,11=>0,12=>0];
+        foreach ($allInvoices as $invoice){
+            $mois = intval($invoice->getCreationDate()->format('m'));
+            //dump($mois);
+            //dump($invoice);
+            $total = $invoice->getTotalIncludingTaxes();
+            //injection de la data
+            $moisList[$mois] = $moisList[$mois]+$total ;
+
+
+        }
+        //die();
+        return $moisList;
     }
 }

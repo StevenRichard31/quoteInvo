@@ -19,7 +19,6 @@
 
 
         {{ form_start(form, {'attr' :{'novalidate':'novalidate'}}) }}
-        {#{{ form_start(form) }}#}
 
         <div class="row justify-content-center">
             <div class="col-md-4">
@@ -169,7 +168,7 @@
                         <div class="listPhones row justify-content-center">
                         {% for phone in form.phones %}
                             {% include '@App/customer/template/formPhone.html.twig'%}
-                        {% else %}
+                            {% else %}
                             {% do form.phones.setRendered %}
                         {% endfor %}
                         </div>

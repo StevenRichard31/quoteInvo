@@ -2,23 +2,32 @@
 
 {% block body %}
     <div class="container-fluid">
-        <div class="row" style="margin-bottom: 15px">
-            <h1>Réglage des Paramêtres</h1>
+        <div class="row" style="padding: 15px">
+            <h1>Réglage des Paramètres</h1>
         </div>
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-4" style="margin-bottom: 15px">
                 <div class="row justify-content-center">
-                    <a class="btnEditer" href={{ path("setting.tva.form") }}> ajouter une *TVA*</a><br>
+                    <a class="btnEditer col-8" href={{ path("setting.tva.form") }}>
+                        <i class="fas fa-dollar-sign"></i><br>
+                        <span class="fontArt">Ajouter une TVA</span>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="row justify-content-center">
-                    <a class="btnEditer" href={{ path("setting.paymentMethod.form") }}> ajouter une *Méthode de paiement*</a>
+                <div class="row justify-content-center" style="margin-bottom: 15px">
+                    <a class="btnEditer col-8" href={{ path("setting.paymentMethod.form") }}>
+                        <i class="far fa-credit-card"></i><br>
+                        <span class="fontArt">Ajouter une Méthode de paiement</span>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="row justify-content-center">
-                    <a class="btnEditer" href={{ path("setting.user") }}> Gestion des *Utilisateur*</a>
+                <div class="row justify-content-center" style="margin-bottom: 15px">
+                    <a class="btnEditer col-8" href={{ path("setting.user") }}>
+                        <i class="fas fa-users"></i><br>
+                        <span class="fontArt">Gestion des Utilisateurs</span>
+                    </a>
                 </div>
             </div>
         </div>

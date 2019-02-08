@@ -53,25 +53,6 @@ function addPhoneForm(collectionHolder) {
     }
 }
 
-/*----------------------------------------------------*/
-/*------DELETE PHONE                        ----------*/
-/*----------------------------------------------------*/
-/*
-function addPhoneFormDeleteLink(newFormLi){
-
-
-    var removeFormA = $('<div href="#" class="del_phone_link  btnSupprimer text-center" >Supprimer ce numéro de téléphone</div>');
-    newFormLi.append(removeFormA);
-
-    removeFormA.on('click', function(e) {
-
-        // prevent the link from creating a "#" on the URL
-        e.preventDefault();
-
-        // remove the li for the tag form
-        newFormLi.remove();
-    });
-}*/
 
 function deletePhone(id){
     $(id).remove();
@@ -144,6 +125,7 @@ function getAddress(requete, reponse, query){
         dataType : 'json', //type de données est en JSON
         success : function(donnee){
             reponse($.map(donnee.cities, function(objet){
+                console.log(objet);
                 if (isNaN(query)){
                     return{
                         value: objet.city,
@@ -159,7 +141,7 @@ function getAddress(requete, reponse, query){
                 }
 
             }));
-
         }
+        //error : function(){}
     });
 }

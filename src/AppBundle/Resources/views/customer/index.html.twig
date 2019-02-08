@@ -36,7 +36,7 @@
                     <tbody>
                     {%  if customers != null %}
                     {% for customer in customers%}
-                        <tr id ="{{customer.id }}" class="trSelect" onclick="displayCustomerInfo({{customer.id }})">
+                        <tr id ="{{customer.id }}" class="trSelect actionSelected" onclick="displayCustomerInfo({{customer.id }}),selectCustomer({{customer.id }})">
                             <th scope="row" class="id"><span>{{customer.id }}</span></th>
                             <td class="name">
                                 <span>{{ customer.name }}</span>
@@ -151,5 +151,6 @@
 {% endblock %}
 
 {% block script %}
+    <script src="{{ asset('js/utils/modalDelete.js') }}"></script>
     <script src="{{ asset('js/customer/index.js') }}"></script>
 {% endblock %}

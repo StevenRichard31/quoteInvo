@@ -13,4 +13,5 @@ final class AppBundleEvents
 {
     const ADD_QUOTE = "add.quote";
     const SEND_MAIL = "send.mail";
+
 }

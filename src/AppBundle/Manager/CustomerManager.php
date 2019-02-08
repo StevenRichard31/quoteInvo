@@ -8,9 +8,13 @@
 
 namespace AppBundle\Manager;
 
+
+use AppBundle\Controller\Exception\CustomerHaveDocumentException;
 use AppBundle\Entity\Customer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\RegistryInterface as Doctrine;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 
 
 class CustomerManager
@@ -26,15 +30,18 @@ class CustomerManager
 
     private $customer;
 
+    private $dispatcher;
 
 
     /**
      * CustomerManager constructor.
      * @param Doctrine $doctrine
+     * @param EventDispatcherInterface $dispatcher
      */
-    public function __construct(Doctrine $doctrine)
+    public function __construct(Doctrine $doctrine,EventDispatcherInterface $dispatcher)
     {
         $this->doctrine = $doctrine;
+        $this->dispatcher = $dispatcher;
     }
 
 
@@ -72,6 +79,30 @@ class CustomerManager
         return $originalPhones;
     }
 
+    //vérifie si customer a au moins un document
+    public function isCustomerWithDocument($customerId){
+
+        $repository = $this->doctrine->getRepository(Customer::class);
+        $array = $repository->findCustomerInvoiceQuote($customerId);
+
+        if($array === []){
+            return ;
+        }else{
+            $customer = $array[0];
+            $quotes = $customer->getQuotes();
+            $invoices = $customer->getInvoices();
+            $numberQuotes = $quotes->count();
+            $numberInvoices = $invoices->count();
+
+            if($numberQuotes > 0 || $numberInvoices > 0){
+                throw new CustomerHaveDocumentException("Le client : ".$customer->getName().", ne peux être supprimer tant qu'il à des documents associés.", $code = 510) ;
+            }else{
+                return ;
+            }
+
+        }
+    }
+
 
     public function getCustomers(){
 
@@ -80,6 +111,7 @@ class CustomerManager
 
     }
 
+    //persiste le client en BDD
     /**
      * @param Customer $customer
      */
@@ -89,6 +121,7 @@ class CustomerManager
         $em->flush();
     }
 
+    //vérifie si le client exist en BDD par le NOM
     public function isExist(Customer $customer){
         $res = $this->doctrine
                     ->getRepository(Customer::class)

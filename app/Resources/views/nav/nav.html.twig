@@ -11,41 +11,41 @@
             </li>
             {% if is_granted("ROLE_ADMIN") %}
             <li>
-                <a href="{{ path("homepage") }}">
+                <a  {% if "/" == app.request.requestUri %}class="selected"{% endif %} href="{{ path("homepage") }}">
                     <span><i class="fas fa-home "></i></span>
                     <span class="fontArtBold">ACCUEIL</span>
                 </a>
             </li>
             <li>
-                <a href="{{ path("charts.index") }}">
+                <a  {% if "charts" in app.request.requestUri %}class="selected"{% endif %} href="{{ path("charts.index") }}">
                     <span><i class="fas fa-chart-pie "></i></span>
                     <span class="fontArtBold">CHARTS</span>
                 </a>
             </li>
             <li>
-                <a href="{{ path("customer.index") }}">
+                <a  {% if "customer" in app.request.requestUri %}class="selected"{% endif %} href="{{ path("customer.index") }}">
                     <span><i class="far fa-address-card "></i></span>
                     <span class="fontArtBold">CLIENTS</span>
                 </a>
             </li>
             {% endif %}
             <li>
-                <a href="{{ path("quote.index") }}">
+                <a  {% if "quote" in app.request.requestUri %}class="selected"{% endif %} href="{{ path("quote.index") }}">
                     <span><i class="far fa-file-alt "></i></span>
                     <span class="fontArtBold">DEVIS</span>
                 </a>
             </li>
             {% if is_granted("ROLE_ADMIN") %}
             <li>
-                <a href="{{ path("invoice.index") }}">
+                <a  {% if "invoice" in app.request.requestUri %}class="selected"{% endif %} href="{{ path("invoice.index") }}">
                     <span><i class="fa fa-file-invoice-dollar "></i></span>
                     <span class="fontArtBold">FACTURES</span>
                 </a>
             </li>
             <li>
-                <a href="{{ path("setting.index") }}">
+                <a {% if "setting" in app.request.requestUri %}class="selected"{% endif %}  href="{{ path("setting.index") }}">
                     <span><i class="fa fa-ellipsis-v "></i></span>
-                    <span class="fontArtBold">PARAMÊTRES</span>
+                    <span class="fontArtBold">PARAMÈTRES</span>
                 </a>
             </li>
             {% endif %}

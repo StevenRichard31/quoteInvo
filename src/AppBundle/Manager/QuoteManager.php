@@ -67,10 +67,6 @@ class QuoteManager
     }
 
     public function addQuote($quote){
-        ///
-        //$quote = $event->getQuote();
-        //$quoteManager = $event->getQuoteManager();
-        $generatorManager = $this->generatorManager;
 
         //verifie si la collection de produit à changer
         $this->updateQuoteProducts($quote);
@@ -80,9 +76,10 @@ class QuoteManager
         //ajoute du devis en BDD
         $this->add($quote);
         if($this->isNewQuote()){
-            $generatorManager->updateGeneratorNumberQuote($quote);
+            $this->generatorManager->updateGeneratorNumberQuote($quote);
         }
 
+        // création d'un évenement  et appeler l'action
         $event = new QuoteEvent($quote);
         $this->dispatcher->dispatch(AppBundleEvents::ADD_QUOTE,$event);
     }

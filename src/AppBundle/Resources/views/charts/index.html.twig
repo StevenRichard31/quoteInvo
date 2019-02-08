@@ -2,28 +2,42 @@
 
 {% block body %}
 
-    <div class="container-fluid">
+    <div class="container-fluid ">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg ">
+                <h1>Chiffre d'affaires annuel</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center" style="padding-top: 20px" >
+            <div class="col-lg-6" style="margin-bottom: 10px; box-shadow: 0px 0px 4px rgba(0,0,0,0.48); border-radius: 5px;">
                 <canvas id="lineChart"></canvas>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="row justify-content-center">
+                    {{ form_start(form) }}
+
+
+                    {{ form_widget(form.date.date.year, {'attr': {'class': ' year'}}) }}
+                    {{ form_widget(form.date.date.day, {'attr': {'style': 'display:none'}}) }}
+                    {{ form_widget(form.date.date.month, {'attr': {'style': 'display:none'}}) }}
+                    {{ form_widget(form.date.time.hour, {'attr': {'style': 'display:none'}}) }}
+                    {{ form_widget(form.date.time.minute , {'attr': {'style': 'display:none'}})  }}
+                    {{ form_widget(form.submit ) }}
+
+
+                    {% do form.date.date.setRendered %}
+
+
+                    {{ form_end(form) }}
+                </div>
+
             </div>
         </div>
     </div>
 
-    {{ form_start(form) }}
 
-
-    {{ form_widget(form.date.date.year) }}
-    {{ form_widget(form.date.date.day, {'attr': {'style': 'display:none'}}) }}
-    {{ form_widget(form.date.date.month, {'attr': {'style': 'display:none'}}) }}
-    {{ form_widget(form.date.time.hour, {'attr': {'style': 'display:none'}}) }}
-    {{ form_widget(form.date.time.minute , {'attr': {'style': 'display:none'}})  }}
-
-
-    {% do form.date.date.setRendered %}
-
-
-    {{ form_end(form) }}
 
 
 {% endblock %}
@@ -33,6 +47,7 @@
 
 
         <script>
+
             $('#appbundle_searchCharts_date_date_year').select2();
             //line
             var ctxL = document.getElementById("lineChart").getContext('2d');
@@ -41,13 +56,13 @@
                 data: {
                     labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
                     datasets: [{
-                        label: "My First dataset",
+                        label: "Chiffre d'affaire du mois",
                         backgroundColor: '#94ecff',
                         borderColor: '#5769ff',
                         pointBorderColor:'#5769ff',
                         data: [
                             {% for key, value in moisList %}
-                            {{ value }},
+                            {{  value }},
                             {% endfor %}
                         ],
                     }]

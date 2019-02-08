@@ -3,11 +3,11 @@
 {% block body %}
     <div class="container-fluid ">
         <div class="row">
-            <div class="col-lg ">
+            <div class="col-sm ">
                 <h1>Factures</h1>
             </div>
         </div>
-        <div class="row" style="margin-bottom: 20px">
+        <div class="row" style="margin-bottom: 20px ;">
             <div class="col-lg-8 col-md-8">
                 {{ form_start(form) }}
                 <div class="form-group" >
@@ -15,11 +15,11 @@
                         {% if form_errors(form.keyword ) != null %}
                             <div class="col alert alert-danger">{{ form_errors(form.keyword) }}</div>
                         {% endif %}
-                        <div class="col-lg-8 col-md-8" >
+                        <div class="col-8" >
                             {{ form_widget(form.keyword, {'attr': {'class': 'form-control'}}) }}
                         </div>
-                        <div class="col-lg-4 col-md-4" >
-                            {{ form_widget(form.submit, {'attr': {'class': 'btnSearchInvoice btn btn-info hidden '}} ) }}
+                        <div class="col-4 " >
+                            {{ form_widget(form.submit, {'attr': {'class': 'btnSearchInvoice validate  btnValidate d-md-none d-block '}} ) }}
                         </div>
                     </div>
                 </div>
@@ -35,14 +35,15 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="listInvoice text-center col-lg-8 col-md-5 col-sm-8 col-5" >
+        <div class="row justify-content-center"  >
+            <div class="listInvoice text-center col-lg-8 col-md-5 col-sm-8 col-10" >
                 <table class="table table-striped ">
                     <thead>
                         <tr>
                             <th scope="col"><span>N°facture:</span></th>
                             <th scope="col"><span>Nom du client:</span></th>
                             <th scope="col"><span>Nom du dossier:</span></th>
+                            <th scope="col"><span>Date</span></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -56,6 +57,9 @@
                                 </td>
                                 <td>
                                     <span>{{ invoice.document_name }}</span>
+                                </td>
+                                <td class="d-none d-sm-block">
+                                    <span >{{ invoice.creation_date | date("d/m/y") }}</span>
                                 </td>
                                 <td>
                                     <a id="btnGroupDrop1" class="selectOption "  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -75,6 +79,5 @@
             </div>
         </div>
     </div>
-
 
 {% endblock %}

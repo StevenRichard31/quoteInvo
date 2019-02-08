@@ -62,3 +62,8 @@ function displayCustomerInfo(id){
     }
 
 }
+function selectCustomer(id){
+    $('.actionSelected').removeClass("selectCustomer")
+    $('#'+id).addClass("selectCustomer");
+}
+

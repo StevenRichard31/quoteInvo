@@ -168,6 +168,7 @@ class InvoiceManager
     public function hydrateInvoice($quote,$invoice){
         //on hydrate la facture avec les info devis
         $invoice
+            ->setCustomer($quote->getCustomer())
             ->setPaymentMethod($quote->getPaymentMethod())
             ->setPercentageAdvencePayment($quote->getPercentageAdvencePayment())
             ->setDocumentName($quote->getDocumentName())

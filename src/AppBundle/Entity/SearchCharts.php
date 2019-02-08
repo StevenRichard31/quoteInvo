@@ -19,7 +19,7 @@ class SearchCharts
 
     /**
      * SearchCharts constructor.
-     * @param $year
+     * @param string $year
      */
     public function __construct()
     {

@@ -110,15 +110,15 @@ class Quote
 
 
     /**
-     * @ORM\Column(type="float", scale=2,nullable=true)
+     * @ORM\Column(type="float",nullable=true)
      */
     private $totalExcludingTaxes;
     /**
-     * @ORM\Column(type="float", scale=2,nullable=true)
+     * @ORM\Column(type="float",nullable=true)
      */
     private $sumTaxes;
     /**
-     * @ORM\Column(type="float", scale=2,nullable=true)
+     * @ORM\Column(type="float",nullable=true)
      */
     private $totalIncludingTaxes;
 

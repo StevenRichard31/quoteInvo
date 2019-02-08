@@ -84,11 +84,7 @@ class Customer
         $this->invoices = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function __clone() {
-        if ($this->id) {
-            $this->id = null;
-        }
-    }
+
 
     public function __toString() {
         return $this->name;

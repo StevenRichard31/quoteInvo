@@ -5,19 +5,28 @@ $(document).ready(function() {
 
     //display navBar with phone screen
     $('.iconBar').click(function() {
-        var nav = $('.container-nav');
+
         if($('.container-nav').is(':hidden')){
-            $('.container-nav').css('display', 'block');
+            $('.container-nav').removeClass("navHidden");
+            $('.container-nav').addClass("navBlock");
             $('.container-nav').removeClass("animated fadeOutLeft");
             $('.container-nav').addClass("animated fadeInLeft");
         }
         else{
+            $('.container-nav').removeClass("navBlock");
             $('.container-nav').removeClass("animated fadeInLeft");
             $('.container-nav').addClass("animated fadeOutLeft");
-            setTimeout(function(){ $('.container-nav').css('display', 'none'); }, 1000);
+            setTimeout(function(){
+                $('.container-nav').addClass("navHidden");
+                $('.container-nav').removeClass("animated fadeOutLeft");
+            }, 1000);
 
 
         }
 
     });
+
+
+
 });
+

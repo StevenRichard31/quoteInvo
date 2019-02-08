@@ -87,7 +87,6 @@ services:
 
     #Subscriber#
     AppBundle\EventListener\QuoteEventSubscriber:
-        arguments: ['@utils.countFunction']
         public: true
 
     #Exception#

@@ -40,7 +40,7 @@ class Address
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Length( min="5", max="5", maxMessage="Le code postal doit faire  {{ limit }} caractères.", minMessage="Le code postal doit faire  {{ limit }} caractères.")
+     * @Assert\Length( min="5", max="10", maxMessage="Le code postal doit faire  {{ limit }} caractères.", minMessage="Le code postal doit faire  {{ limit }} caractères.")
      * @Assert\Type("integer")
      */
     private $postalCode;

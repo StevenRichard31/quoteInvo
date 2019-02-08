@@ -21,23 +21,6 @@ use Twig_Environment;
 class QuoteEventSubscriber implements EventSubscriberInterface
 {
 
-    private $utilsCountFunction;
-    private $twig;
-
-
-    /**
-     * QuoteSubscriber constructor.
-     * @param CountFunction $utilsCountFunction
-     * @param Twig_Environment $twig
-     */
-    public function __construct(CountFunction $utilsCountFunction, Twig_Environment $twig )
-    {
-        $this->utilsCountFunction = $utilsCountFunction;
-        $this->twig = $twig;
-
-    }
-
-
     /**
      * @return array The event names to listen to
      */
@@ -45,6 +28,7 @@ class QuoteEventSubscriber implements EventSubscriberInterface
     {
         return [
             AppBundleEvents::ADD_QUOTE => [
+                // les numero 10,-10... sont des ordres de priorité le plus élever est actionner en premier
                 ["addUserLog",10],
                 ["sendMail",-10]
             ],
@@ -54,11 +38,11 @@ class QuoteEventSubscriber implements EventSubscriberInterface
 
     public function addUserLog(QuoteEvent $event){
 
-
+       // dump('1');
     }
 
     public function sendMail(QuoteEvent $event){
-
+        //dump('2'); die();
 
     }
 }

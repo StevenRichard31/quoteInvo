@@ -65,5 +65,19 @@ class CustomerRepository extends EntityRepository
         return $stmt->fetchAll();
     }
 
+    public function findCustomerInvoiceQuote($customerId){
+
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT c,q,i FROM AppBundle:Customer c
+                      left join c.quotes q
+                      left join c.invoices i
+                      where c.id = :customerId                    
+                      '
+            )
+            ->setParameter('customerId', $customerId)
+            ->getResult();
+    }
+
 
 }

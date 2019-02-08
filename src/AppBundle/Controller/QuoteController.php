@@ -12,13 +12,11 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Quote;
 use AppBundle\Form\RegistrationQuoteType;
 use AppBundle\Form\SearchType;
-use AppBundle\Manager\GeneratorNumberQuoteManager;
 use AppBundle\Manager\QuoteManager;
 use AppBundle\Manager\SearchManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -36,6 +34,7 @@ class QuoteController extends Controller
      */
     public function indexQuoteAction(Request $request)
     {
+        //récupération des devis par une requête via le repository
         $quotes = $this->get(QuoteManager::class)->getQuotesByLimit();
 
         $searchManager = $this->get(SearchManager::class);
@@ -62,7 +61,6 @@ class QuoteController extends Controller
     public function formQuoteAction(Quote $quote = null,Request $request)
     {
         //MANAGER
-        //$generatorManager = $this->get(GeneratorNumberQuoteManager::class);
         $quoteManager = $this->get(QuoteManager::class);
 
         if ($quote === null) {
@@ -70,12 +68,13 @@ class QuoteController extends Controller
             $quote = $quoteManager->create();
         }
         else {
-            //si ce n'est pas un admin
+            //appel du VOTER , check si ce n'est pas un admin
             if (!$this->isGranted('edit', $quote)) {
                 $this->addFlash('error', 'Vous n\'avez pas le droit de modifier ce devis !');
                 return $this->redirectToRoute("quote.index");
             }
         }
+        //donne un numéro généré au devis
         $quote = $quoteManager->getQuoteWithNumber($quote);
 
         //création du formulaire et création du lien avec l'objet
@@ -89,7 +88,7 @@ class QuoteController extends Controller
             if( $error != null){
                 return $this->render('@App/quote/form.html.twig', ["form" => $formQuote->createView(), "error" => $error]);
             }
-
+            //ajout devis à la bdd et appel un dispatcher
             $quoteManager->addQuote($quote);
 
             //retour sur la page index de "Quote"

@@ -87,12 +87,14 @@ input{
 select{
     max-height: 30px;
     text-align: center;
-
-
 }
 
 #appbundle_tva_tva,#appbundle_tva_paymentMethod{
     padding: 0px 12px 0px 12px;
+}
+
+.selected{
+    background-color: #535859;
 }
 /*---------------------------------------------------------------------*/
 /*----------Animation                                   -------------------*/
@@ -265,13 +267,11 @@ thead tr th{
     text-align: center;
     border-radius: 5px;
     background-color: #4ac04c;
-    border-bottom: 2px solid #2e652f;
     padding: 3px 10px 3px 10px ;
     transition: all 0.3s;
 }
 
 .btn-success:hover{
-    border-bottom: 2px solid #2e652f;
     background-color: #58e259;
     color: ghostwhite !important;
     text-decoration: none ;
@@ -400,6 +400,15 @@ thead tr th{
     background-color: #00ddff;
 }
 
+.colorSuccess{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.38);
+}
+.colorSuccess:hover{
+    color: white;
+    background-color: #88C93D;
+}
+
 .colorWarning{
     color: white;
     background-color: rgba(0, 0, 0, 0.38);
@@ -488,7 +497,7 @@ thead tr th{
 
 .infoCustomer{
     border-radius: 5px ;
-    background-color: #949696;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 
@@ -514,6 +523,9 @@ thead tr th{
     background-color: rgba(0, 0, 0, 0.07);
 }
 
+.selectCustomer{
+    background-color: rgba(0, 181, 209, 0.24) !important;
+}
 
 /*---------------------------------------------------------------------*/
 /*----------QUOTE                                   -------------------*/
@@ -609,22 +621,7 @@ thead tr th{
 .btnSearchInvoice{
     display: none;
 }
-.resultInvoice{
-    margin-right: 10px;
-    border: 3px solid #00b5d1;
-    background-color: #2e4e5b;
-    border-radius: 5px ;
-    margin-top: 2px;
-    color: whitesmoke;
-    transition: all 0.4s;
-}
 
-.resultInvoice:hover{
-    border: 3px solid #00b5d1;
-    background-color: #0096b2;
-    text-decoration: none ;
-    color: whitesmoke !important;
-}
 
 .resultInvoiceHead{
     border: 2px solid #00b5d1;
@@ -804,6 +801,8 @@ md-perspective,
     z-index: 2;
     transition: all 0.5s;
 }
+
+
 nav ul {
     padding: 0;
     margin: 0;
@@ -864,13 +863,25 @@ nav ul li a span{
     transition: all 0.1s;
 }
 
-
+/*---------------------------------------------------------------------*/
+/*----------Setting                                -------------------*/
+/*---------------------------------------------------------------------*/
+.fa-users{
+    font-size: 80px;
+}
+.fa-dollar-sign{
+    font-size: 80px;
+}
+.fa-credit-card{
+    font-size: 80px;
+}
 
 @media screen and (max-width: 1000px) and (min-width: 639px) {
     .container-nav{
         width: 80px;
         transition: all 0.5s;
     }
+
     nav ul li {
         text-align: center;
     }
@@ -912,6 +923,18 @@ nav ul li a span{
         background-image: url("../images/logoText69.png");
     }
 
+    /*---------------------------------------------------------------------*/
+    /*----------Setting                                -------------------*/
+    /*---------------------------------------------------------------------*/
+    .fa-users{
+        font-size: 40px;
+    }
+    .fa-dollar-sign{
+        font-size: 40px;
+    }
+    .fa-credit-card{
+        font-size: 40px;
+    }
 }
 
 @media screen and (max-width: 639px) {
@@ -920,8 +943,13 @@ nav ul li a span{
         background-color: #171b1c;
     }
     .container-nav{
-        display: none;
         transition: all 0.5s;
+    }
+    .navBlock{
+        display: block;
+    }
+    .navHidden{
+        display: none;
     }
     .main-content{
         margin-left: 0px;
@@ -996,5 +1024,18 @@ nav ul li a span{
         height: 52px;
         width: 317px;
         background-image: url("../images/logoText52.png");
+    }
+
+    /*---------------------------------------------------------------------*/
+    /*----------Setting                                -------------------*/
+    /*---------------------------------------------------------------------*/
+    .fa-users{
+        font-size: 30px;
+    }
+    .fa-dollar-sign{
+        font-size: 30px;
+    }
+    .fa-credit-card{
+        font-size: 30px;
     }
 }

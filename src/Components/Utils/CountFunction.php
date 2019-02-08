@@ -20,6 +20,7 @@ class CountFunction
         $this->setCountSumTaxes($document);
         $this->setCountTotalIncludingTaxes($document);
 
+
     }
 
     public function setLeftToPayAndTVA($document){
@@ -34,8 +35,13 @@ class CountFunction
             $total = $document[0]->getTotalIncludingTaxes();
             $amountAdvence = $total*$advence;
             $leftToPay = number_format($total-$amountAdvence,2);
-            return $document = array_merge($document,['leftToPay' => $leftToPay]);
+            $leftToPay =(float)str_replace(',',"",$leftToPay);
+            //dump($leftToPay);
+            $document = array_merge($document,['leftToPay' => $leftToPay]);
+            //dump($document);die();
+            return $document;
         }
+
         return $document;
 
     }
@@ -74,46 +80,50 @@ class CountFunction
 
     public function setCountAmountOfTaxe($products){
         foreach ($products as $product){
-            $priceOutTaxe =  number_format($product->getPriceOutTaxe(),2);
+            $priceOutTaxe =  $product->getPriceOutTaxe();
             //si il y a un pourcentage de réduction
             if($product->getPercentageDiscount() != null){
                 $amountDiscount = $priceOutTaxe * ($product->getPercentageDiscount()/100);
-                $priceOutTaxe = number_format($priceOutTaxe-$amountDiscount,2);
+                $priceOutTaxe = $priceOutTaxe-$amountDiscount;
             }
             $taxe = $product->getTva()->getPercentage()/100;
             $amountOfTaxe = number_format(($priceOutTaxe * $taxe)*$product->getQuantity(),2);
-            $product->setAmountOfTaxe($amountOfTaxe);
+            $product->setAmountOfTaxe((float)str_replace(',',"",$amountOfTaxe));
         }
     }
 
     public function setCountPriceWithTaxe($products){
         foreach ($products as $product){
-            $priceOutTaxe =  number_format($product->getPriceOutTaxe(),2);
+            $priceOutTaxe =  $product->getPriceOutTaxe();
             //si il y a un pourcentage de réduction
             if($product->getPercentageDiscount() != null){
                 $amountDiscount = $priceOutTaxe * ($product->getPercentageDiscount()/100);
-                $priceOutTaxe = number_format($priceOutTaxe-$amountDiscount,2);
+                $priceOutTaxe = $priceOutTaxe-$amountDiscount;
             }
-           $countPriceWithTaxe =  number_format(($priceOutTaxe*$product->getQuantity())+$product->getAmountOfTaxe(),2);
-           $product->setPriceWithTaxe($countPriceWithTaxe);
+            $priceOutTaxe = number_format($priceOutTaxe,2);
+            $priceOutTaxe =(float)str_replace(',',"",$priceOutTaxe);
+
+           $countPriceWithTaxe =  ($priceOutTaxe*$product->getQuantity())+$product->getAmountOfTaxe();
+           $countPriceWithTaxe = number_format($countPriceWithTaxe,2);
+           $product->setPriceWithTaxe((float)str_replace(',',"",$countPriceWithTaxe));
         }
     }
 
     public function setCountTotalExcludingTaxes($document){
         $totalExcludingTaxes = 0;
         $products = $document->getProducts();
-
         foreach ($products as $product){
-            $priceOutTaxe =  number_format($product->getPriceOutTaxe(),2);
+
+            $priceOutTaxe =  $product->getPriceOutTaxe();
             //si il y a un pourcentage de réduction
             if($product->getPercentageDiscount() != null){
                 $amountDiscount = $priceOutTaxe * ($product->getPercentageDiscount()/100);
-                $priceOutTaxe = number_format($priceOutTaxe-$amountDiscount,2);
+                $priceOutTaxe = $priceOutTaxe-$amountDiscount;
             }
             $totalExcludingTaxes += ($priceOutTaxe * $product->getQuantity());
         }
         $totalExcludingTaxes = number_format($totalExcludingTaxes,2);
-        $document->setTotalExcludingTaxes($totalExcludingTaxes);
+        $document->setTotalExcludingTaxes((float)str_replace(',',"",$totalExcludingTaxes));
     }
 
     public function setCountSumTaxes($document){
@@ -122,13 +132,13 @@ class CountFunction
         foreach ($products as $product){
             $sumTaxes += $product->getAmountOfTaxe();
         }
-        $sumTaxes = number_format($sumTaxes,2);
+
         $document->setSumTaxes($sumTaxes);
     }
 
     public function setCountTotalIncludingTaxes($document){
         $totalIncludingTaxes = number_format($document->getTotalExcludingTaxes()+ $document->getSumTaxes(),2);
-        $document->setTotalIncludingTaxes($totalIncludingTaxes);
+        $document->setTotalIncludingTaxes((float)str_replace(',',"",$totalIncludingTaxes));
     }
 
 }

@@ -35,7 +35,7 @@
         <div class="col-lg-2">
             {{ form_widget(product.tva, {'attr': {'class': 'tvaForm'}}) }}
         </div>
-        <div class="col-1">
+        <div class="col-auto">
             <span style="color: black">TTC: </span><span id="{{ product.vars.id }}_ttc" style="color: black"> </span>
         </div>
         <div class=" btnSupprimer" onclick="deleteProduct({{ product.vars.id}},'#{{ product.vars.id }}_ttc',priceTotal)" style="margin-right: 15px">

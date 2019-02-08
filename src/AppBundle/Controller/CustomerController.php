@@ -9,10 +9,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Manager\CustomerManager;
+use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use AppBundle\Entity\Customer;
 use AppBundle\Form\RegistrationCustomerType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -87,7 +89,14 @@ class CustomerController extends Controller
      */
     public function deleteCustomerAction(Customer $customer){
 
-        $this->get(CustomerManager::class)->delete($customer);
+        $customerManager = $this->get(CustomerManager::class);
+
+        $customerManager->isCustomerWithDocument($customer->getId());
+
+
+
+
+        $customerManager->delete($customer);
         return $this->redirectToRoute("customer.index");
     }
 

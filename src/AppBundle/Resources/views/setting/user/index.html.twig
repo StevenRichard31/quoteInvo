@@ -12,55 +12,83 @@
             </div>
             <div class="col-md-4"  >
                 <div class="row justify-content-end" style=" margin-right: 10px">
-                    <a class="btnEditer " href={{ path("fos_user_registration_register") }}><bold>Nouvelle Utilisateur +</bold></a>
+                    <a class="btnEditer " href={{ path("fos_user_registration_register") }}><bold>Nouvel Utilisateur +</bold></a>
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="resultInvoice col-md-8 ">
-                <div class="row">
-                    <div class="col-md-4">N°facture:</div>
-                    <div class="col-md-4">Nom du client:</div>
-                    <div class="col-md-4">Nom du dossier:</div>
+        <div class="row justify-content-center" style="margin-top: 20px">
+            <div class=" col-lg-8 col-md-10 col-sm-10 col-10">
+                <table class="table table-striped ">
+                    <thead>
+                    <tr>
+                        <th scope="col"><span>Nom:</span></th>
+                        <th scope="col"><span>Rôle:</span></th>
+                        <th scope="col"><span>Etat:</span></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%  if users is not null %}
+                        {% for user in users%}
+                            <tr class="col-lg col-md" >
+                                <th class="col-auto" >
+                                    <span>{{ user.username }}</span>
+                                </th>
+                                <td class="col-auto">
+                                    <span>{{ user.roles[0]}}</span>
+                                </td>
+                                <td class="col-auto">
+                                    <span>
+                                        {% if user.enabled == true %}
+                                           <span style="color: #88c93d">ACTIVER</span>
+                                        {% else %}
+                                           <span style="color: #FF5A35">DESACTIVER</span>
+                                        {%  endif %}
+                                    </span>
+                                </td>
+                                <td class="col-auto">
+                                    {% if user.roles[0] != 'ROLE_ADMIN' %}
+                                    <a id="btnGroupDrop1" class="selectOption "  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-cog cogOption"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                        {% if user.roles[0] != 'ROLE_ADMIN' %}
+                                            {% if user.enabled == true %}
+                                                <a class="dropdown-item text-center colorWarning" href="{{ path("setting.user.enabled", {id: user.id}) }}" >Désactiver</a>
+                                            {% else %}
+                                                <a class="dropdown-item text-center colorSuccess" href="{{ path("setting.user.enabled", {id: user.id}) }}" >Activer</a>
+                                            {%  endif %}
+                                            <a class="dropdown-item colorDanger text-center" data-toggle="modal" data-target="#exampleModal" data-whatever="{{ path("setting.user.delete", {id: user.id}) }}" style="margin:4px 10px 0px 0px; color: white">Supprimer</a>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span style="color: black">Êtes-vous sûr de vouloir supprimer ce compte?</span>
+                </div>
+
+                <div class="modal-footer" >
+                    <button type="button" class="btn btn-secondary fontArt col-4" data-dismiss="modal">Fermer</button>
+                    <a class="btnSupprimer" href="#">Supprimer</a>
                 </div>
             </div>
         </div>
-        {%  if users is not null %}
-            {% for user in users %}
-                <div class="rowUserInfo row justify-content-center  ">
-                    <div class="col-md-8" href="#" target="_blank">
-                        <div class="row">
-                            <div class="col-lg">{{ user.username }}</div>
-                            <div class="col-lg">{{ user.roles[0]}}</div>
-                            <div class="col-lg">
-                                {% if user.enabled == true %}
-                                    ACTIVER
-                                {% else %}
-                                    DESACTIVER
-                                {%  endif %}
-                            </div>
-                            <div class="col-lg">
-                                {% if user.roles[0] != 'ROLE_ADMIN' %}
-                                    {% if user.enabled == true %}
-                                        <a class="btn-warning" href="{{ path("setting.user.enabled", {id: user.id}) }}">Désactiver</a>
-                                    {% else %}
-                                        <a class="btn-success" href="{{ path("setting.user.enabled", {id: user.id}) }}">Activer</a>
-                                    {%  endif %}
-                                {% endif %}
-                            </div>
-                            <div class="col-lg">
-                                {% if user.roles[0] != 'ROLE_ADMIN' %}
-                                    <a class="btnSupprimer" href="{{ path("setting.user.delete", {id: user.id}) }}">Supprimer</a>
-                                {% endif %}
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            {% endfor %}
-        {% endif %}
     </div>
 
 
+{% endblock %}
+
+{% block script %}
+    <script src="{{ asset('js/utils/modalDelete.js') }}"></script>
 {% endblock %}
